@@ -1,3 +1,13 @@
+Raw Data
+================
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- Data is found on Box -->
+
+The raw data will not be posted on GitHub, at least for the time being.
+This is due to privacy concerns and the fact that the research is not
+complete.
+
 ## Data Collection Process
 
 Collected 1000 responses from residents of Los Angeles Metropolitan
