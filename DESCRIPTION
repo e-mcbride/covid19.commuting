@@ -1,0 +1,22 @@
+Package: covid19.commuting
+Title: Data Analysis Investigating COVID-19 Impact on Daily Travel
+Version: 0.0.0.9000
+Authors@R:
+    person(given = "Elizabeth",
+           family = "McBride",
+           role = c("aut", "cre"),
+           email = "mcbrideelizabethc@gmail.com",
+           comment=c(ORCID = "https://orcid.org/0000-0002-8692-5869"))
+Description: This package is a research compendium using the R package 
+  structure. Investigates the impact of COVID-19 on daily travel such as 
+  commuting, going to school, going to appointments, or dropping children off.
+License: GPL (>= 3)
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: bookdown,
+    here
+Suggests: devtools,
+    git2r
