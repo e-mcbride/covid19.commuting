@@ -13,7 +13,7 @@ This repository contains the data and code for our paper:
 Our pre-print is online here:
 
 > Authors, (YYYY). *Future Paper (not yet titled)*. Name of
-> journal/book, Accessed 15 Jun 2021. Online at
+> journal/book, Accessed 18 Jun 2021. Online at
 > <https://doi.org/xxx/xxx>
 
 ### How to cite
@@ -21,7 +21,7 @@ Our pre-print is online here:
 Please cite this compendium as:
 
 > Authors, (2021). *Compendium of R code and data for Future Paper (not
-> yet titled)*. Accessed 15 Jun 2021. Online at
+> yet titled)*. Accessed 18 Jun 2021. Online at
 > <https://doi.org/xxx/xxx>
 
 ## Contents
@@ -34,6 +34,7 @@ The **analysis** directory contains:
     `paper.docx`, suitable for reading (the code is replaced by figures
     and tables in this file)
 -   [:file\_folder: data](/analysis/data): Data used in the analysis.
+    This folder will not be publicly available for the time being.
 -   [:file\_folder: figures](/analysis/figures): Plots and other
     illustrations
 -   [:file\_folder:
@@ -56,6 +57,20 @@ packages this analysis depends on (also listed in the
 [DESCRIPTION](/DESCRIPTION) file). - finally, open
 `analysis/paper/paper.Rmd` and knit to produce the `paper.docx`, or run
 `rmarkdown::render("analysis/paper/paper.Rmd")` in the R console
+
+## For Lab Members: After cloning this repository, how to modify the project folder to work on this project
+
+This compendium was created with the package (template)
+[rrtools](https://github.com/benmarwick/rrtools) There are some files
+and folders that are not currently being pushed to GitHub, so there are
+a few steps if you want to .
+
+1.  Clone the repository as usual
+2.  Install `rrtools` by following the instructions
+    [here](https://github.com/benmarwick/rrtools)
+3.  Run `rrtools::use_analysis()`
+4.  Add the raw data from Box to `/analysis/data/raw_data`
+5.  Run the MAKEFILE
 
 ### Licenses
 
