@@ -1,0 +1,15 @@
+## Data Collection Process
+
+Collected 1000 responses from residents of Los Angeles Metropolitan
+Area. Data were collected using SurveyMonkey in May 2020, and
+respondents came from SurveyMonkey’s proprietary panel.
+
+## Survey Contents
+
+Questions were about the impact of the COVID-19 pandemic on daily travel
+behavior, including:
+
+-   Changes in working from home
+-   Changes in schooling from home
+-   Whether people moved and why they moved if so
+-   SES characteristics.

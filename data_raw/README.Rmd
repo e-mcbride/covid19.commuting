@@ -1,6 +1,6 @@
 ---
 title: "Raw Data"
-output: html_document
+output: md_document
 ---
 
 ## Data Collection Process
