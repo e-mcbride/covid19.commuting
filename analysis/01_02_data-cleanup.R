@@ -12,16 +12,10 @@ library(unpivotr)
 
 # task: combine 1st and 2nd rows into column names (refer to Qatar project "Access2_AutomateTAZChars.Rmd")
 
-# raw_data_exp <- read_rds("analysis/data/derived_data/raw-data-expanded.rds")
-#
-# raw_data_exp |>
-#   unpivotr::as_cells() |>
-#   View()
-
 
 
 #####
-# Trying to do it with excel
+# Using excel
 #####
 data_cells <- tidyxl::xlsx_cells(here("analysis/data/raw_data/raw-condensed-xl2.xlsx")) |>
 
@@ -32,49 +26,27 @@ data_cells <- tidyxl::xlsx_cells(here("analysis/data/raw_data/raw-condensed-xl2.
              true = NA_character_,
              false = character
            )) |>
+  #hilarious find if car model is written as "infinity" it is converted to an error in excel format .xlsx
+    # Fixed below:
+  mutate(character =
+           if_else(data_type == "error", "Infiniti", character),
+         data_type =
+           if_else(data_type == "error", "character", data_type),
+         ) |>
   dplyr::filter(!is_blank) |>
-  select(row, col, address, is_blank, data_type, error, numeric, date, character)
+  select(row, col, address, is_blank, data_type, numeric, date, character)
   # filter(data_type == "date")
 
-try_behead <- data_cells |>
+headers_labeled <- data_cells |>
   behead("up-left", row1) |>
   behead("up", row2)
 
 
-# try_spread <- try_behead |>
-#   spread(row1)
-
-try_behead |> filter(address == "M3")
-
-
-question_list <- try_behead |>
-  select(row1, row2) |>
-  distinct()
-
-
-# clean_question_list <- question_list |>
-#   mutate(clean_row1 = janitor::make_clean_names(row1))
-
-clean_row1 <- try_behead |>
-  select(row1) |>
-  distinct() |>
-  mutate(clean_row1 = janitor::make_clean_names(row1))
-
-clean_row2 <- try_behead |>
-  select(row2) |>
-  distinct() |>
-  filter(!is.na(row2)) |>
-  mutate(clean_row2 = janitor::make_clean_names(row2))
-
-clean_question_list <- try_behead |>
+clean_question_list <- headers_labeled |>
   select(row1, row2) |>
   distinct() |>
-  # left_join(clean_row1, by = "row1") |>
-  # left_join(clean_row2, by = "row2") |>
-  # recode to shorten variable names
-  # add_column(short_row1 = c(
-  #
-  # ))
+
+  # Shorten the long sentence variable names
   mutate(
     short_row1 =
       recode(row1,
@@ -189,53 +161,30 @@ clean_question_list <- try_behead |>
              `My schedule is too erratic to be in a carpool` = "carpool_schedule",
              `Taking public transit does not fit my lifestyle` = "transit_lifestyle",
              `Prefer to self-describe` = "self-describe")) |>
+
+  # Merge the two variable name rows to make unique variable names for each column
   mutate(varnames =
            str_c(str_replace_na(short_row1), str_replace_na(short_row2), sep = "_") |>
            str_replace_all("_NA", replacement = ""))
+
+readr::write_rds(clean_question_list, here("analysis/data/derived_data/clean-question-list.rds"))
+
+#####
+# Joining new variable names to beheaded dataset
 #####
 
-#hilarious find:
-# if car model is written as "infinity" it is converted to an error in excel format .xlsx
+data_newnames <- headers_labeled |>
 
-# 1. Find the word "Response" from 2nd name row and remove it (because it is not necessary for it to be part of the variable names)
-# clear_response <-
-# raw_data_cells |>
-#
-#   #
-#   mutate(noresp =
-#            if_else(
-#              condition = (row == 2 & value == "Response"),
-#              true = NA_character_,
-#              false = value
-#            )) |>
-#   # mutate(abc = na_if())
-#   View()
+  # join new short header labels to table, remove old ones
+  left_join(clean_question_list, by = c("row1", "row2")) |>
+  select(-row1, -row2, -short_row1, -short_row2) |>
+
+  # remove unnecessary rows (IMPORTANT to include `row` as a unique identifier)
+  # also important to remove unnecessary rows (like `col`) to ensure `spatter` works as intended
+  select(row, data_type, numeric, date, character, varnames) |>
+  spatter(key = varnames) |>
+  select(-row) |>
+  select(pid, collectorid, everything()) |>
+  janitor::clean_names()
 
 
-# 2. Shorten the long sentence variable names
-#
-# Remove columns with no data at all ()
-
-
-# task: create data dictionary (actual question asked w/ variable name)
-# raw_data <- read_rds("analysis/data/derived_data/raw-data.rds")
-
-# dictionary <- raw_data |>
-#   # slice(1) |>
-#   select(11:ncol(raw_data)) |>
-#   pivot_longer(cols = everything(), names_to = "name1") |>
-#   unique()
-#   group_by(name1) |>
-#   summarise(n())
-
-#
-# pivot_test <- raw_data_exp |>
-#   slice(1:2) |>
-#   # mutate(across(everything(), ~as.character(.x))) |>
-#   pivot_longer(cols = everything(), names_to = "name1")
-
-
-
-# explore
-
-# raw_data_expanded_cells <- read_rds("analysis/data/derived_data/raw-data-expanded-cells.rds")
