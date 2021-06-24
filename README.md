@@ -13,7 +13,7 @@ This repository contains the data and code for our paper:
 Our pre-print is online here:
 
 > Authors, (YYYY). *Future Paper (not yet titled)*. Name of
-> journal/book, Accessed 18 Jun 2021. Online at
+> journal/book, Accessed 24 Jun 2021. Online at
 > <https://doi.org/xxx/xxx>
 
 ### How to cite
@@ -21,7 +21,7 @@ Our pre-print is online here:
 Please cite this compendium as:
 
 > Authors, (2021). *Compendium of R code and data for Future Paper (not
-> yet titled)*. Accessed 18 Jun 2021. Online at
+> yet titled)*. Accessed 24 Jun 2021. Online at
 > <https://doi.org/xxx/xxx>
 
 ## Contents
@@ -88,3 +88,26 @@ We welcome contributions from everyone. Before you get started, please
 see our [contributor guidelines](CONTRIBUTING.md). Please note that this
 project is released with a [Contributor Code of Conduct](CONDUCT.md). By
 participating in this project you agree to abide by its terms.
+
+### Personal To Do List
+
+Checklist
+
+-   :black\_square\_button: make csv-to-rds function (roxygen and stuff)
+-   :black\_square\_button: Fix Excel import issue, replace raw data
+    files
+-   :black\_square\_button: Make the cleanup into a function (so it can
+    be applied to different raw data downloads)
+
+:white\_check\_mark: complete :black\_square\_button: incomplete
+
+### Personal Notes
+
+-   If I get to do another round of this survey, then I might make some
+    changes to the format
+    -   I would put the question ‘Please mark any means of
+        transportation you use to get to work, school, shopping, or any
+        other places you need to visit…’ before any other mode questions
+        and have it eliminate the other modes from future questions
+        about modes for the respondents so they don’t have to do it
+        repeatedly

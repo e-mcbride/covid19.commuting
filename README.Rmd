@@ -88,5 +88,17 @@ We welcome contributions from everyone. Before you get started, please see our [
 
 ### Personal To Do List
 
-[ ] make csv-to-rds function (roxygen and stuff)
-[ ] Fix Excel import issue, replace raw data files
+Checklist
+
+* :black_square_button: make csv-to-rds function (roxygen and stuff)
+* :black_square_button: Fix Excel import issue, replace raw data files
+* :black_square_button: Make the cleanup into a function (so it can be applied to different raw data downloads)
+
+:white_check_mark: complete 
+:black_square_button: incomplete
+
+### Personal Notes
+
+* If I get to do another round of this survey, then I might make some changes to the format
+  + I would put the question 'Please mark any means of transportation you use to get to work, school, shopping, or any other places you need to visit...' before any other mode questions and have it eliminate the other modes from future questions about modes for the respondents so they don't have to do it repeatedly
+  
