@@ -99,7 +99,10 @@ Checklist
 -   :black\_square\_button: Make the cleanup into a function (so it can
     be applied to different raw data downloads)
 
-:white\_check\_mark: complete :black\_square\_button: incomplete
+Legend
+
+-   :white\_check\_mark: complete
+-   :black\_square\_button: incomplete
 
 ### Personal Notes
 

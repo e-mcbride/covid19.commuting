@@ -94,8 +94,10 @@ Checklist
 * :black_square_button: Fix Excel import issue, replace raw data files
 * :black_square_button: Make the cleanup into a function (so it can be applied to different raw data downloads)
 
-:white_check_mark: complete 
-:black_square_button: incomplete
+Legend
+
+* :white_check_mark: complete 
+* :black_square_button: incomplete
 
 ### Personal Notes
 
