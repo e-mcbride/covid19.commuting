@@ -5,19 +5,19 @@ library(here)
 library(tidyverse)
 library(tidyxl)
 library(unpivotr)
-# raw_data_cells <- read_rds("analysis/data/derived_data/raw-data-cells.rds")
-# raw_data_exp <- read_rds("analysis/data/raw_data/raw-covid19-survey-expanded.csv", col_names = FALSE)
-# raw_xl_cells <- tidyxl::xlsx_cells(here("analysis/data/raw_data/raw-condensed-xl2.xlsx"))
-
 
 # task: combine 1st and 2nd rows into column names (refer to Qatar project "Access2_AutomateTAZChars.Rmd")
+
+# data_cells <- tidyxl::xlsx_cells(here("analysis/data/raw_data/raw-condensed-xl.xlsx")) # testing if it works yet
+
 
 
 
 #####
 # Using excel
 #####
-data_cells <- tidyxl::xlsx_cells(here("analysis/data/raw_data/raw-condensed-xl2.xlsx")) |>
+data_cells <- tidyxl::xlsx_cells(here("analysis/data/raw_data/raw-condensed-completeonly-xl2.xlsx")) |>
+# data_cells <- tidyxl::xlsx_cells(here("analysis/data/raw_data/raw-condensed-xl2.xlsx")) |>
 
   #Remove "Response" from 2nd row of column names cuz it's unnecessary
   mutate(character =
@@ -39,7 +39,10 @@ data_cells <- tidyxl::xlsx_cells(here("analysis/data/raw_data/raw-condensed-xl2.
 
 headers_labeled <- data_cells |>
   behead("up-left", row1) |>
-  behead("up", row2)
+  behead("up", row2) |>
+
+  # Reorder columns back to original order
+  arrange(col)
 
 
 clean_question_list <- headers_labeled |>
@@ -85,7 +88,7 @@ clean_question_list <- headers_labeled |>
              `Please mark any means of transportation you use to get to work, school, shopping, or any other places you need to visit. Exclude things like going on a walk, "joyrides", or a recreational bicycle ride.` = "gen_modes",
              `Do you have a valid driver's license?` = "driverLic",
              `On a typical week (including weekends) before COVID-19 restrictions, please estimate how many trips you make by each of the modes you indicated previously. A trip is a one-way movement from an origin to a destination.` = "be4_nTrips",
-             `In the past seven days, approximately how many trips did you make by each of the modes you indicated previously? A trip is a one-way movement from an origin to a destination.` = "wk_nTrips",
+             `In the past seven days, approximately how many trips did you make by each of the modes you indicated previously? A trip is a one-way movement from an origin to a destination.` = "now_nTrips",
              `Do you have one or more personal cars owned and used mostly by you?` = "ownCar",
              `What is the year, make, and model of your automobile?` = "car",
              `Please respond to the following prompts` = "prompt",
@@ -165,7 +168,8 @@ clean_question_list <- headers_labeled |>
   # Merge the two variable name rows to make unique variable names for each column
   mutate(varnames =
            str_c(str_replace_na(short_row1), str_replace_na(short_row2), sep = "_") |>
-           str_replace_all("_NA", replacement = ""))
+           str_replace_all("_NA", replacement = "")) |>
+  mutate(varnames = janitor::make_clean_names(varnames))
 
 readr::write_rds(clean_question_list, here("analysis/data/derived_data/clean-question-list.rds"))
 
@@ -184,7 +188,15 @@ data_newnames <- headers_labeled |>
   select(row, data_type, numeric, date, character, varnames) |>
   spatter(key = varnames) |>
   select(-row) |>
-  select(pid, collectorid, everything()) |>
-  janitor::clean_names()
+  # select(pid, collectorid, everything()) |>
+  janitor::clean_names() |>
+  select(clean_question_list$varnames)
 
+# data_newnames
+# colnames(data_newnames)
+# y <- data_newnames |> select(clean_question_list$varnames)
+# x <- data_newnames[,clean_question_list$varnames]
+
+readr::write_rds(data_newnames, here("analysis/data/derived_data/data-newnames-completeonly.rds"))
+# readr::write_rds(data_newnames, here("analysis/data/derived_data/data-newnames.rds"))
 
