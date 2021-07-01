@@ -8,7 +8,7 @@ library(unpivotr)
 
 # task: combine 1st and 2nd rows into column names (refer to Qatar project "Access2_AutomateTAZChars.Rmd")
 
-# data_cells <- tidyxl::xlsx_cells(here("analysis/data/raw_data/raw-condensed-xl.xlsx")) # testing if it works yet
+# data_cells <- tidyxl::xlsx_cells(here("analysis/data/raw_data/raw-condensed-completeonly-xl.xlsx")) # testing if it works yet
 
 
 
