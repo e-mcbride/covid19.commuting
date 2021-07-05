@@ -8,6 +8,7 @@ csv_to_rds <- function(csvin, rdsout) {
     readr::write_rds(rdsout)
 }
 
+
 # melt_csv imports data where each cell is given its own row with columns of metadata
 readr::melt_csv(here("analysis/data/raw_data/raw-covid19-survey.csv")) |>
   # write file as .rds for faster import in future
