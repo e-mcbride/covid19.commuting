@@ -6,7 +6,7 @@
 # These will be removed more systematically after I get a model running
 
 # Imports -----------------------------------------------------------------
-here::i_am("analysis/temp_rm-cases-brute-force.R")
+here::i_am("analysis/01_02_remove-bad-cases.R")
 library(here)
 library(tidyverse)
 
@@ -26,18 +26,12 @@ data_short <- data_newnames %>%
 trav_prefix <- c("time", "dst", "ntr") %>% str_c(collapse = "|")
 trav_regx <- paste0("^(b4)([a-z0-9_]+)", "(", trav_prefix, ")")
 
-
-# string_cnames <- data_short %>% colnames()
-
-
 trav_varnames <- data_short %>%
   # extract column names as vector
   colnames() %>%
   str_subset(trav_regx)
 
-trav_varnames
-
-mode_regx <- str_extract(trav_varnames, "([a-z0-9]+)$") %>% unique() %>% str_c(collapse = "|")
+# mode_regx <- str_extract(trav_varnames, "([a-z0-9]+)$") %>% unique() %>% str_c(collapse = "|")
 
 
 
@@ -57,7 +51,7 @@ data_elim <- data_short %>%
 
 ### Thought: could replace with surveymonkey gender
 
-write_rds(data_elim, "analysis/data/derived_data/01_03_data-good-cases.rds")
+write_rds(data_elim, "analysis/data/derived_data/data-good-cases.rds")
 
 
 

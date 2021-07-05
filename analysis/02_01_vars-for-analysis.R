@@ -1,44 +1,99 @@
 # decide variables to use in analysis
-here::i_am("analysis/02_01_select-variables-for-analysis.R")
+here::i_am("analysis/02_01_vars-for-analysis.R")
 library(here)
 library(tidyverse)
 
-data <- readr::read_rds(here("analysis/data/derived_data/data-newnames-completeonly.rds"))
+# data <- readr::read_rds(here("analysis/data/derived_data/data-newnames-completeonly.rds"))
 dictionary <- readr::read_rds("analysis/data/derived_data/clean-question-list.rds")
+data_elim <- read_rds("analysis/data/derived_data/data-good-cases.rds")
 
-# data_short <- data |>
-#   select(-collectorid, -startdate, -enddate, -custom_data_1, -collector_type_source, -device, -contains("_mode_"),
-#          -region_survey_monk, -united_states_region_survey_monk)
+# Get travel variable names -----------------------------------------------
+
+trav_prefix <- c("time", "dst", "ntr") %>% str_c(collapse = "|")
+trav_regx <- paste0("^(b4)([a-z0-9_]+)", "(", trav_prefix, ")")
+# paste0("(", trav_prefix,")", "_([a-z0-9_]+)")
+
+
+trav_varnames <- data_elim %>%
+  # extract column names as vector
+  colnames() %>%
+  str_subset(trav_regx)
+
+mode_regx <- str_extract(trav_varnames, "([a-z0-9]+)$") %>% unique() %>% str_c(collapse = "|")
 
 
 
 
-# make the time, dist, n(trips) by mode 0 for those who did not travel by those modes
 
-vars_to_change <- c("_time_", "_dist_", "n_trips")
+# Var Selection ----
 
-pickvars <- data |>
-  select(pid, contains(vars_to_change),
-         starts_with("gender"),
-         year_born_open, age,
-         hh_inc, hh_inc_survey_monk)
+# mode totals, ignoring work or school or everything else
+mode_totals <- data_elim %>%
+  select(pid, contains(trav_varnames)) %>%
+  gather(key = "colname", value = "value", -pid) %>%
+  mutate(
+    # grp = str_extract(colname, "time|dist|trips"),
+    mode = str_extract(colname, paste0("(", trav_prefix,")", "_([a-z0-9_]+)"))) %>%
+  group_by(pid, mode) %>%
+  summarise(b4_tot = sum(value)) %>%
+  spread(key = mode, value = b4_tot)
 
-analysisvars <- data |>
-  mutate(across(contains(vars_to_change),
-         ~replace_na(.x, 0))) |>
-  select(pid, contains(vars_to_change), own_car,  starts_with("prompt"))
 
-# make a non-vehicle category? Like combine bicycling, walking, transit?
+# drive alone, bike/walk/transit, carpool
+eco <- "bik|wlk|trn" #eco-friendly: bike, walk, transit
+dal <- "dal" # drive alone
+shr <- "dot|pass" # sharing/carpooling
 
-# Make aggregate variables ------------------------------------------------
+abbr_mode_totals <- data_elim %>%
+  select(pid, contains(trav_varnames)) %>%
+  gather(key = "colname", value = "value", -pid) %>%
+  mutate(
+    measure = str_extract(colname, trav_prefix),
+    travmode = str_extract(colname, paste0("(", mode_regx, ")")),
+    # travmode = str_extract(colname, "([a-z0-9]+)$"),
+    # measmode = str_extract(colname, "(time|dist|trips)_([a-z0-9_]+)"),
+    abbrmode = case_when(
+      str_detect(travmode, eco) ~ "eco",
+      str_detect(travmode, dal) ~ "dal",
+      str_detect(travmode, shr) ~ "shr",
+      TRUE                      ~ "oth"
+    ),
+    abbr_meas_mode = str_c(measure, abbrmode, sep = "_")
+  ) %>%
+  group_by(pid, abbr_meas_mode) %>%
+  summarise(be4_tot = sum(value)) %>%
+  spread(key = abbr_meas_mode, value = be4_tot)
 
-# travel time total
-# travel distance total
-# n trips total
+# %>%
+#   group_by(pid, mode) %>%
+#   summarise(be4_tot = sum(value)) %>%
+#   spread(key = mode, value = be4_tot)
 
-# all of those by:
-#   + drive alone
-#   + "eco-friendly"
 
-analysisvars |>
-  mutate()
+
+# Building the dataset, prepping for Mplus====================================
+data_b4_analyze <- data_elim %>%
+  select(pid,
+         # SES/demographics
+         gender, b4_emp, hinc,
+
+         # attitude
+         starts_with("q")
+  ) %>%
+  left_join(abbr_mode_totals, by = "pid")
+# rename_with(~ str_replace(.x, "prompt_", "q"), starts_with("prompt"))
+
+#  Mplus only allows 8 char, so any colnames > 8 char?
+((data_b4_analyze %>% colnames() %>% nchar()) > 8) %>% any()
+
+
+# print column names to copy/paste into Mplus VARIABLE argument
+# noquote(colnames(data_b4_analyze))
+an_coln <- colnames(data_b4_analyze) %>% str_c(collapse = " ") %>% noquote()
+
+write_file(an_coln, here("analysis/data/derived_data/analysis-colnames.txt"))
+
+
+write_csv(data_b4_analyze, here("analysis/data/derived_data/data-analysis.csv"))
+
+
