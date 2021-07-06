@@ -164,12 +164,12 @@ clean_question_list <- headers_labeled |>
              `Year` = "yr",
              `Make (e.g., Ford)` = "make",
              `Model (e.g., Mustang)` = "modl",
-             `I like the freedom of driving my own car` = "d_frdm",
-             `Driving a car is a relaxing way to commute` = "d_relx",
-             `I enjoy driving my car even in heavy traffic` = "d_enjy",
-             `I won’t rely on another person to get to work on time` = "c_rely",
-             `My schedule is too erratic to be in a carpool` = "c_schd",
-             `Taking public transit does not fit my lifestyle` = "t_lfst",
+             `I like the freedom of driving my own car` = "dfr",
+             `Driving a car is a relaxing way to commute` = "drx",
+             `I enjoy driving my car even in heavy traffic` = "dnj",
+             `I won’t rely on another person to get to work on time` = "crl",
+             `My schedule is too erratic to be in a carpool` = "csc",
+             `Taking public transit does not fit my lifestyle` = "tlf",
              `Prefer to self-describe` = "slfdesc")) |>
 
   # Merge the two variable name rows to make unique variable names for each column
