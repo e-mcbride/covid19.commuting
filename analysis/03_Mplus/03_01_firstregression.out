@@ -1,0 +1,254 @@
+Mplus VERSION 8.6 (Mac)
+MUTHEN & MUTHEN
+07/05/2021   8:45 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:      first model with COVID data, basic regression;
+  DATA:       FILE IS data-analysis.csv;
+  VARIABLE:   NAMES ARE  pid dst_eco dst_oth dst_shr
+  	              ntr_dal ntr_eco ntr_oth ntr_shr
+  	              time_dal time_eco time_oth time_shr
+  	              dst_dal gender_1 gender_2
+  	              b4_emp_1 b4_emp_2 b4_emp_3
+  	              hinc_01 hinc_02 hinc_03 hinc_04 hinc_05
+  	              hinc_06 hinc_07 hinc_08 hinc_09 hinc_10 hinc_11
+  	              q_dfr_1 q_dfr_2 q_dfr_3 q_dfr_4 q_dfr_5
+  	              q_drx_1 q_drx_2 q_drx_3 q_drx_4 q_drx_5
+  	              q_dnj_1 q_dnj_2 q_dnj_3 q_dnj_4 q_dnj_5
+  	              q_crl_1 q_crl_2 q_crl_3 q_crl_4 q_crl_5
+  	              q_csc_1 q_csc_2 q_csc_3 q_csc_4 q_csc_5
+  	              q_tlf_1 q_tlf_2 q_tlf_3 q_tlf_4 q_tlf_5;
+  	
+  	  USEVARIABLES ARE
+  	  	dst_dal 
+  	  	gender_1 hinc_02 hinc_03 hinc_04 hinc_05
+  	              hinc_06 hinc_07 hinc_08 hinc_09 hinc_10 hinc_11;
+
+              Missing are all (-9999);
+  MODEL:
+  	dst_dal on 
+  		gender_1 hinc_02 hinc_03 hinc_04 hinc_05
+  	           hinc_06 hinc_07 hinc_08 hinc_09 hinc_10 hinc_11;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+first model with COVID data, basic regression;
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                         972
+
+Number of dependent variables                                    1
+Number of independent variables                                 11
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   DST_DAL
+
+Observed independent variables
+   GENDER_1    HINC_02     HINC_03     HINC_04     HINC_05     HINC_06
+   HINC_07     HINC_08     HINC_09     HINC_10     HINC_11
+
+
+Estimator                                                       ML
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+
+Input data file(s)
+  data-analysis.csv
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns             1
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              DST_DAL       GENDER_1      HINC_02       HINC_03       HINC_04
+              ________      ________      ________      ________      ________
+ DST_DAL        1.000
+ GENDER_1       1.000         1.000
+ HINC_02        1.000         1.000         1.000
+ HINC_03        1.000         1.000         1.000         1.000
+ HINC_04        1.000         1.000         1.000         1.000         1.000
+ HINC_05        1.000         1.000         1.000         1.000         1.000
+ HINC_06        1.000         1.000         1.000         1.000         1.000
+ HINC_07        1.000         1.000         1.000         1.000         1.000
+ HINC_08        1.000         1.000         1.000         1.000         1.000
+ HINC_09        1.000         1.000         1.000         1.000         1.000
+ HINC_10        1.000         1.000         1.000         1.000         1.000
+ HINC_11        1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              HINC_05       HINC_06       HINC_07       HINC_08       HINC_09
+              ________      ________      ________      ________      ________
+ HINC_05        1.000
+ HINC_06        1.000         1.000
+ HINC_07        1.000         1.000         1.000
+ HINC_08        1.000         1.000         1.000         1.000
+ HINC_09        1.000         1.000         1.000         1.000         1.000
+ HINC_10        1.000         1.000         1.000         1.000         1.000
+ HINC_11        1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              HINC_10       HINC_11
+              ________      ________
+ HINC_10        1.000
+ HINC_11        1.000         1.000
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     DST_DAL               8.093       3.138       0.000   52.47%       0.000      0.000      0.000
+             972.000     219.990      13.265     126.000    0.10%       4.000     15.000
+     GENDER_1              0.528      -0.111       0.000   47.22%       0.000      0.000      1.000
+             972.000       0.249      -1.988       1.000   52.78%       1.000      1.000
+     HINC_02               0.062       3.642       0.000   93.83%       0.000      0.000      0.000
+             972.000       0.058      11.266       1.000    6.17%       0.000      0.000
+     HINC_03               0.126       2.261       0.000   87.45%       0.000      0.000      0.000
+             972.000       0.110       3.111       1.000   12.55%       0.000      0.000
+     HINC_04               0.109       2.508       0.000   89.09%       0.000      0.000      0.000
+             972.000       0.097       4.292       1.000   10.91%       0.000      0.000
+     HINC_05               0.112       2.458       0.000   88.79%       0.000      0.000      0.000
+             972.000       0.100       4.044       1.000   11.21%       0.000      0.000
+     HINC_06               0.186       1.612       0.000   81.38%       0.000      0.000      0.000
+             972.000       0.152       0.599       1.000   18.62%       0.000      0.000
+     HINC_07               0.159       1.860       0.000   84.05%       0.000      0.000      0.000
+             972.000       0.134       1.461       1.000   15.95%       0.000      0.000
+     HINC_08               0.106       2.560       0.000   89.40%       0.000      0.000      0.000
+             972.000       0.095       4.555       1.000   10.60%       0.000      0.000
+     HINC_09               0.063       3.606       0.000   93.72%       0.000      0.000      0.000
+             972.000       0.059      11.001       1.000    6.28%       0.000      0.000
+     HINC_10               0.029       5.634       0.000   97.12%       0.000      0.000      0.000
+             972.000       0.028      29.744       1.000    2.88%       0.000      0.000
+     HINC_11               0.027       5.866       0.000   97.33%       0.000      0.000      0.000
+             972.000       0.026      32.412       1.000    2.67%       0.000      0.000
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       13
+
+Loglikelihood
+
+          H0 Value                       -3972.484
+          H1 Value                       -3972.484
+
+Information Criteria
+
+          Akaike (AIC)                    7970.967
+          Bayesian (BIC)                  8034.399
+          Sample-Size Adjusted BIC        7993.111
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                              0.000
+          Degrees of Freedom                     0
+          P-Value                           0.0000
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.000
+          90 Percent C.I.                    0.000  0.000
+          Probability RMSEA <= .05           0.000
+
+CFI/TLI
+
+          CFI                                1.000
+          TLI                                1.000
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                             56.010
+          Degrees of Freedom                    11
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.000
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ DST_DAL  ON
+    GENDER_1          -0.278      0.931     -0.298      0.765
+    HINC_02            2.705      3.655      0.740      0.459
+    HINC_03            2.171      3.410      0.637      0.524
+    HINC_04            3.669      3.446      1.065      0.287
+    HINC_05            6.098      3.439      1.773      0.076
+    HINC_06            7.570      3.326      2.276      0.023
+    HINC_07            8.704      3.359      2.591      0.010
+    HINC_08           11.157      3.455      3.230      0.001
+    HINC_09           11.795      3.654      3.228      0.001
+    HINC_10            8.185      4.161      1.967      0.049
+    HINC_11           15.658      4.231      3.701      0.000
+
+ Intercepts
+    DST_DAL            1.341      3.214      0.417      0.677
+
+ Residual Variances
+    DST_DAL          207.673      9.420     22.045      0.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.262E-03
+       (ratio of smallest to largest eigenvalue)
+
+
+     Beginning Time:  20:45:06
+        Ending Time:  20:45:06
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2021 Muthen & Muthen
