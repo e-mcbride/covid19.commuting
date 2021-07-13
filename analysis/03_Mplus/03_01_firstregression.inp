@@ -1,31 +1,55 @@
 TITLE:      first model with COVID data, basic regression;
 DATA:       FILE IS b4-data-analysis.csv;
-VARIABLE:   NAMES ARE  pid dst_eco dst_oth dst_shr 
+VARIABLE:   NAMES ARE  pid 
+	              dst_eco dst_oth dst_shr 
 	              ntr_dal ntr_eco ntr_oth ntr_shr 
 	              time_dal time_eco time_oth time_shr 
-	              dst_dal gender_1 gender_2 
-	              b4_emp_1 b4_emp_2 b4_emp_3 
-	              hinc_01 hinc_02 hinc_03 hinc_04 hinc_05 
-	              hinc_06 hinc_07 hinc_08 hinc_09 hinc_10 hinc_11 
-	              q_dfr_1 q_dfr_2 q_dfr_3 q_dfr_4 q_dfr_5 
-	              q_drx_1 q_drx_2 q_drx_3 q_drx_4 q_drx_5 
-	              q_dnj_1 q_dnj_2 q_dnj_3 q_dnj_4 q_dnj_5 
-	              q_crl_1 q_crl_2 q_crl_3 q_crl_4 q_crl_5 
-	              q_csc_1 q_csc_2 q_csc_3 q_csc_4 q_csc_5 
-	              q_tlf_1 q_tlf_2 q_tlf_3 q_tlf_4 q_tlf_5;
+	              dst_dal 
+	              gender_1 gender_2 
+	              b4_emp_1-b4_emp_3
+	              hinc_01-hinc_11 
+	              q_dfr_1-q_dfr_5 
+	              q_drx_1-q_drx_5 
+	              q_dnj_1-q_dnj_5 
+	              q_crl_1-q_crl_5 
+	              q_csc_1-q_csc_5 
+	              q_tlf_1-q_tlf_5;
+	              !b4_emp_1 b4_emp_2 b4_emp_3 
+	              !hinc_01 hinc_02 hinc_03 hinc_04 hinc_05
+	              !hinc_06 hinc_07 hinc_08 hinc_09 hinc_10 hinc_11 
+	              !q_dfr_1 q_dfr_2 q_dfr_3 q_dfr_4 q_dfr_5 
+	              !q_drx_1 q_drx_2 q_drx_3 q_drx_4 q_drx_5 
+	              !q_dnj_1 q_dnj_2 q_dnj_3 q_dnj_4 q_dnj_5 
+	              !q_crl_1 q_crl_2 q_crl_3 q_crl_4 q_crl_5
+	              !q_csc_1 q_csc_2 q_csc_3 q_csc_4 q_csc_5
+	              !q_tlf_1 q_tlf_2 q_tlf_3 q_tlf_4 q_tlf_5;
 	  
 	  USEVARIABLES ARE
-	  	dst_dal 
-	  	gender_1 hinc_02 hinc_03 hinc_04 hinc_05 
-	              hinc_06 hinc_07 hinc_08 hinc_09 hinc_10 hinc_11;
+	  	dst_dal
+	  	gender_1 
+	  	hinc_02-hinc_11
+	  	q_dfr_2-q_dfr_5 
+	              q_drx_2-q_drx_5 
+	              q_dnj_2-q_dnj_5 
+	              q_crl_2-q_crl_5 
+	              q_csc_2-q_csc_5 
+	              q_tlf_2-q_tlf_5;
+	  	!hinc_02 hinc_03 hinc_04 hinc_05 hinc_06 hinc_07 hinc_08 hinc_09 hinc_10 hinc_11;
+	  	
 
-            Missing are all (-9999);
+            MISSING ARE ALL (-9999);
 MODEL: 
-  dst_dal on 
+  dst_dal ON 
     gender_1 
-    hinc_02 hinc_03 hinc_04 hinc_05 
-    hinc_06 hinc_07 hinc_08 hinc_09 hinc_10 hinc_11;
+    hinc_02-hinc_11
+    	  	q_dfr_2-q_dfr_5 
+	              q_drx_2-q_drx_5 
+	              q_dnj_2-q_dnj_5 
+	              q_crl_2-q_crl_5 
+	              q_csc_2-q_csc_5 
+	              q_tlf_2-q_tlf_5;
+    !hinc_02 hinc_03 hinc_04 hinc_05 hinc_06 hinc_07 hinc_08 hinc_09 hinc_10 hinc_11;
+    
+PLOT: TYPE IS PLOT3;
     
     
-
-! Example of a comment

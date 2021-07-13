@@ -1,0 +1,51 @@
+TITLE: 	LCA of the attitudes;
+DATA: 	FILE IS b4-data-analysis.csv;
+
+VARIABLE:	NAMES ARE	pid 
+		   				dst_eco dst_oth dst_shr 
+	              		ntr_dal ntr_eco ntr_oth ntr_shr 
+	              		time_dal time_eco time_oth time_shr 
+	              		dst_dal 
+	              		gender_1 gender_2 
+	              		b4_emp_1-b4_emp_3
+	              		hinc_01-hinc_11 
+	              		q_dfr_1-q_dfr_5 
+	              		q_drx_1-q_drx_5 
+	              		q_dnj_1-q_dnj_5 
+	              		q_crl_1-q_crl_5 
+	              		q_csc_1-q_csc_5 
+	              		q_tlf_1-q_tlf_5;
+
+	USEVARIABLES ARE 
+	             	q_dfr_1-q_dfr_5 
+	              	q_drx_1-q_drx_5 
+	              	q_dnj_1-q_dnj_5 
+	              	q_crl_1-q_crl_5 
+	              	q_csc_1-q_csc_5 
+	              	q_tlf_1-q_tlf_5;
+	              	
+	CATEGORICAL ARE 
+					q_dfr_1-q_dfr_5 
+	              	q_drx_1-q_drx_5 
+	              	q_dnj_1-q_dnj_5 
+	              	q_crl_1-q_crl_5 
+	              	q_csc_1-q_csc_5 
+	              	q_tlf_1-q_tlf_5;
+	                          
+	
+	CLASSES ARE c(3);
+	
+	MISSING ARE ALL (-9999);			
+
+ANALYSIS:	TYPE = MIXTURE;
+	STARTS = 1000 250;
+	
+	PROCESSORS = 6;
+
+
+SAVEDATA:	FILE IS lca1_save.txt;
+			SAVE IS CPROB;
+			FORMAT IS FREE;
+
+OUTPUT:		TECH11 TECH14;
+

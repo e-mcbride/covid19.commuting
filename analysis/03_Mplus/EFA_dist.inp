@@ -1,0 +1,54 @@
+TITLE: 	EFA with continuous factor indicators to get factors for travel behavior dependent
+		variable;
+DATA: 	FILE IS b4-data-analysis.csv;
+
+VARIABLE:   NAMES ARE  pid 
+		   dst_eco dst_oth dst_shr 
+	              ntr_dal ntr_eco ntr_oth ntr_shr 
+	              time_dal time_eco time_oth time_shr 
+	              dst_dal 
+	              gender_1 gender_2 
+	              b4_emp_1-b4_emp_3
+	              hinc_01-hinc_11 
+	              q_dfr_1-q_dfr_5 
+	              q_drx_1-q_drx_5 
+	              q_dnj_1-q_dnj_5 
+	              q_crl_1-q_crl_5 
+	              q_csc_1-q_csc_5 
+	              q_tlf_1-q_tlf_5;
+
+	USEVARIABLES ARE 
+		!dst_eco dst_oth dst_shr dst_dal 
+		!ntr_dal ntr_eco ntr_oth ntr_shr
+		!time_dal time_eco time_oth time_shr (*1);
+	              q_dfr_1-q_dfr_5 
+	              q_drx_1-q_drx_5 
+	              q_dnj_1-q_dnj_5 
+	              q_crl_1-q_crl_5 
+	              q_csc_1-q_csc_5 
+	              q_tlf_1-q_tlf_5;
+	
+	MISSING ARE ALL (-9999);			
+
+MODEL: 	f1-f4 BY 
+		!dst_eco dst_oth dst_shr dst_dal 
+		!ntr_dal ntr_eco ntr_oth ntr_shr
+		!time_dal time_eco time_oth time_shr (*1);
+			              q_dfr_1-q_dfr_5 
+	              q_drx_1-q_drx_5 
+	              q_dnj_1-q_dnj_5 
+	              q_crl_1-q_crl_5 
+	              q_csc_1-q_csc_5 
+	              q_tlf_1-q_tlf_5;
+
+!ANALYSIS:	TYPE = EFA 1 4;
+	!STARTS = 20;
+
+OUTPUT: 
+	!STANDARDIZED;
+	MODINDICES;
+
+!SAVEDATA:	FILE IS trav_fscores.dat;
+	!SAVE = FSCORES;
+
+
