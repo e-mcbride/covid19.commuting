@@ -66,13 +66,14 @@ You can download the compendium as a zip from from this URL:
 
 ## For Lab Members: After cloning this repository, how to modify the project folder to work on this project
 
-This compendium was created with the package (template) [rrtools](https://github.com/benmarwick/rrtools) There are some files and folders that are not currently being pushed to GitHub, so there are a few steps if you want to . 
+This compendium was created with the package (template) [rrtools](https://github.com/benmarwick/rrtools) There are some files and folders that are not currently being pushed to GitHub, so there are a few steps if you want to work on this project from a new computer. 
 
 1. Clone the repository as usual
 2. Install `rrtools` by following the instructions [here](https://github.com/benmarwick/rrtools)
 3. Run `rrtools::use_analysis()`
 4. Add the raw data from Box to `/analysis/data/raw_data`
-5. Run the MAKEFILE
+5. Run `make_like.R` in the `/analysis` folder
+  + If you get an error `there is no package called ...`, then install the package(s) using `install.packages()` before re-running the line that threw the error 
 
 ### Licenses
 
