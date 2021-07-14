@@ -7,4 +7,5 @@
 *.dat
 *.csv
 *.out
-
+analysis/03_Mplus/*.txt
+*.gh5
