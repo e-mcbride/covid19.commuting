@@ -36,6 +36,13 @@ data_likert_cont <- data_elim %>%
                                                   "Strongly Agree"))) %>%
   mutate(across(where(is.factor), as.numeric, .names = "score_{.col}")) %>%
   select(-(where(is.factor))) %>%
-  mutate(across(starts_with("score_"), ordered))
+  mutate(across(starts_with("score_"), ordered)) %>%
+  rename_with(~gsub("score_", "", .x, fixed = TRUE))
+
+an_coln <- colnames(data_likert_cont) %>% str_c(collapse = " ") %>% noquote()
+an_coln
+
+write_file(an_coln, here("analysis/data/derived_data/analysis-colnames.txt"))
+
 
 write_csv(data_likert_cont, na = "-9999", col_names = FALSE, here("analysis/03_Mplus/data-likert-cont.csv"))
