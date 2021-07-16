@@ -1,5 +1,5 @@
 # decide variables to use in analysis
-here::i_am("analysis/02_01_vars-for-analysis.R")
+here::i_am("analysis/02_01_data-prep-analysis.R")
 library(here)
 library(tidyverse)
 library(tidymodels)
@@ -125,7 +125,7 @@ data_b4_analyze %>%
 an_coln <- colnames(data_b4_analyze) %>% str_c(collapse = " ") %>% noquote()
 an_coln
 
+write_rds(data_b4_analyze, here("analysis/data/derived_data/data-mplus-ready.rds"))
 
-# save file to `analysis` folder bc that means mplus script can find it with no PATH necessary
-write_csv(data_b4_analyze, na = "-9999", col_names = FALSE, here("analysis/03_Mplus/b4-data-analysis_att-cont.csv"))
+
 
