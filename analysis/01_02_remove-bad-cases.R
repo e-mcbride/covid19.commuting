@@ -34,6 +34,21 @@ trav_varnames <- data_short %>%
 # mode_regx <- str_extract(trav_varnames, "([a-z0-9]+)$") %>% unique() %>% str_c(collapse = "|")
 
 
+# Get pid's of mph > 80 or mph < 1 --------------------------------------------------
+
+mph_bad <- data_short %>%
+  select(pid, matches("b4_.dst"), matches("b4_.time")) %>%
+  # pivot_longer(cols = contains("dst"), names_to = "dst_type")
+  pivot_longer(!pid,
+               names_to = c("w_s", "d_t", "mode"),
+               names_pattern = c("b4_?(.)(.*)_(.*)")
+  ) %>%
+  pivot_wider(names_from = d_t, values_from = value) %>%
+  group_by(pid, w_s, mode) %>%
+  mutate(mph = (dst/time)*60) %>%
+  filter(mph < 1 | mph > 80) %>%
+  pull(pid) %>%
+  unique()
 
 
 # Elimination ------------------------------------------------
@@ -46,16 +61,12 @@ data_elim <- data_short %>%
   filter(!(car_make %in% "jhgfjhgfd")) %>%
 
   # Non-binary gender FOR NOW
-  filter((gender %in%  c("Female", "Male")))
+  filter((gender %in%  c("Female", "Male"))) %>%
+  filter(!(pid %in% mph_bad))
 
 
-### Thought: could replace with surveymonkey gender
-
+# Write data --------------------------------------------------------------
 write_rds(data_elim, "analysis/data/derived_data/data-good-cases.rds")
-
-
-
-
 
 
 
