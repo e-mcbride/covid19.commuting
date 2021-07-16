@@ -76,7 +76,17 @@ abbr_mode_totals <- data_elim %>%
 data_b4_analyze <- data_elim %>%
   select(pid,
          # SES/demographics
-         gender, b4_emp, hinc,
+         gender, hinc,
+         b4_emp, b4_wdays, b4_wfh, b4_vmeet, b4_wschd,
+         stu,
+         own_car,
+
+         # # variables for other timepoints
+         # w_now,w_chg, w_ind,
+         # ndays_wnow, ndays_wfh, ndays_vmeet,
+         # ndays_aft_wfh, ndays_aft_vmeet, ndays_aft_comm,
+
+
 
          # attitude
          starts_with("q")
@@ -103,14 +113,15 @@ data_b4_analyze <- data_elim %>%
                                                "Strongly Agree"))) %>%
   mutate(across(where(is.factor), as.numeric, .names = "score_{.col}")) %>%
   select(-(where(is.factor))) %>%
-  mutate(across(starts_with("score_"), ordered))
-
-data_dum <- data_b4_analyze %>%
-  recipe(dst_dal ~ .) %>%
-  step_dummy(starts_with("score_"), one_hot = TRUE) %>%
-  prep() %>%
-  bake(data_b4_analyze) %>%
+  mutate(across(starts_with("score_"), ordered)) %>%
   rename_with(~gsub("score_", "", .x, fixed = TRUE))
+
+# data_dum <- data_b4_analyze %>%
+#   recipe(dst_dal ~ .) %>%
+#   step_dummy(starts_with("score_"), one_hot = TRUE) %>%
+#   prep() %>%
+#   bake(data_b4_analyze) %>%
+#   rename_with(~gsub("score_", "", .x, fixed = TRUE))
 
 # data_b4_analyze %>% select(q_d_enjy) %>% unique()
 # x <- data_b4_analyze %>% select(starts_with("q_")) %>%
@@ -141,7 +152,8 @@ data_b4_analyze %>%
 # dumbs %>% rename_with(~gsub("score_", "", .x, fixed = TRUE)) %>% View()
 
 #  Mplus only allows 8 char, so any colnames > 8 char?
-((data_dum %>% colnames() %>% nchar()) > 8) %>% which()
+# ((data_dum %>% colnames() %>% nchar()) > 8) %>% which()
+((data_b4_analyze %>% colnames() %>% nchar()) > 8) %>% which()
 
 
 
@@ -150,12 +162,15 @@ data_b4_analyze %>%
 
 # print column names to copy/paste into Mplus VARIABLE argument
 # noquote(colnames(data_b4_analyze))
-an_coln <- colnames(data_dum) %>% str_c(collapse = " ") %>% noquote()
+# an_coln <- colnames(data_dum) %>% str_c(collapse = " ") %>% noquote()
+# an_coln
+
+an_coln <- colnames(data_b4_analyze) %>% str_c(collapse = " ") %>% noquote()
 an_coln
 
 write_file(an_coln, here("analysis/data/derived_data/analysis-colnames.txt"))
 
 # save file to `analysis` folder bc that means mplus script can find it with no PATH necessary9
-write_csv(data_dum, na = "-9999", col_names = FALSE, here("analysis/03_Mplus/b4-data-analysis.csv"))
-
+# write_csv(data_dum, na = "-9999", col_names = FALSE, here("analysis/03_Mplus/b4-data-analysis.csv"))
+write_csv(data_b4_analyze, na = "-9999", col_names = FALSE, here("analysis/03_Mplus/b4-data-analysis_att-cont.csv"))
 
