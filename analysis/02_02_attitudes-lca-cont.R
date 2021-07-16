@@ -11,6 +11,17 @@ data_elim <- read_rds("analysis/data/derived_data/data-good-cases.rds")
 
 data_likert_cont <- data_elim %>%
   select(pid,
+         gender, hinc,
+         b4_emp, b4_wdays, b4_wfh, b4_vmeet, b4_wschd,
+         stu,
+         own_car,
+
+         # # variables for other timepoints
+         # w_now,w_chg, w_ind,
+         # ndays_wnow, ndays_wfh, ndays_vmeet,
+         # ndays_aft_wfh, ndays_aft_vmeet, ndays_aft_comm,
+
+
          # attitude
          starts_with("q")
   ) %>%
