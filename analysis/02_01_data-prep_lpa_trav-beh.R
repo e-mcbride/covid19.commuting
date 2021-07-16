@@ -50,8 +50,6 @@ abbr_mode_totals <- data_elim %>%
   mutate(
     measure = str_extract(colname, trav_prefix),
     travmode = str_extract(colname, paste0("(", mode_regx, ")")),
-    # travmode = str_extract(colname, "([a-z0-9]+)$"),
-    # measmode = str_extract(colname, "(time|dist|trips)_([a-z0-9_]+)"),
     abbrmode = case_when(
       str_detect(travmode, eco) ~ "eco",
       str_detect(travmode, dal) ~ "dal",
@@ -64,12 +62,6 @@ abbr_mode_totals <- data_elim %>%
   summarise(be4_tot = sum(value)) %>%
   spread(key = abbr_meas_mode, value = be4_tot)
 
-# %>%
-#   group_by(pid, mode) %>%
-#   summarise(be4_tot = sum(value)) %>%
-#   spread(key = mode, value = be4_tot)
-
-
 
 # Building the dataset, prepping for Mplus====================================
 data_b4_analyze <- data_elim %>%
@@ -80,12 +72,10 @@ data_b4_analyze <- data_elim %>%
          stu,
          own_car,
 
-         # # variables for other timepoints
+         # # Variables for other timepoints
          # w_now,w_chg, w_ind,
          # ndays_wnow, ndays_wfh, ndays_vmeet,
          # ndays_aft_wfh, ndays_aft_vmeet, ndays_aft_comm,
-
-
 
          # attitude
          starts_with("q")
@@ -115,18 +105,6 @@ data_b4_analyze <- data_elim %>%
   mutate(across(starts_with("score_"), ordered)) %>%
   rename_with(~gsub("score_", "", .x, fixed = TRUE))
 
-# data_dum <- data_b4_analyze %>%
-#   recipe(dst_dal ~ .) %>%
-#   step_dummy(starts_with("score_"), one_hot = TRUE) %>%
-#   prep() %>%
-#   bake(data_b4_analyze) %>%
-#   rename_with(~gsub("score_", "", .x, fixed = TRUE))
-
-# data_b4_analyze %>% select(q_d_enjy) %>% unique()
-# x <- data_b4_analyze %>% select(starts_with("q_")) %>%
-#   gather() %>%
-#   filter(is.na(value))
-# data_b4_analyze$hinc %>% levels()
 
 # check if the releveling is working
 data_b4_analyze %>%
@@ -144,16 +122,10 @@ data_b4_analyze %>%
 # Output =========================================================
 
 # print column names to copy/paste into Mplus VARIABLE argument
-# noquote(colnames(data_b4_analyze))
-# an_coln <- colnames(data_dum) %>% str_c(collapse = " ") %>% noquote()
-# an_coln
-
 an_coln <- colnames(data_b4_analyze) %>% str_c(collapse = " ") %>% noquote()
 an_coln
 
-write_file(an_coln, here("analysis/data/derived_data/analysis-colnames.txt"))
 
 # save file to `analysis` folder bc that means mplus script can find it with no PATH necessary
-# write_csv(data_dum, na = "-9999", col_names = FALSE, here("analysis/03_Mplus/b4-data-analysis.csv"))
 write_csv(data_b4_analyze, na = "-9999", col_names = FALSE, here("analysis/03_Mplus/b4-data-analysis_att-cont.csv"))
 
