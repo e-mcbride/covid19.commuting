@@ -64,7 +64,7 @@ abbr_mode_totals <- data_elim %>%
 
 
 # Building the dataset, prepping for Mplus====================================
-data_b4_analyze <- data_elim %>%
+data_mplus_ready <- data_elim %>%
   select(pid,
          # SES/demographics
          gender, hinc,
@@ -107,14 +107,14 @@ data_b4_analyze <- data_elim %>%
 
 
 # check if the releveling is working
-data_b4_analyze %>%
+data_mplus_ready %>%
   dplyr::select(where(is.factor)) %>%
   map(levels)
 
 #  Mplus only allows 8 char, so any colnames > 8 char?
 
 # ((data_dum %>% colnames() %>% nchar()) > 8) %>% which()
-((data_b4_analyze %>% colnames() %>% nchar()) > 8) %>% which()
+((data_mplus_ready %>% colnames() %>% nchar()) > 8) %>% which()
 
 
 
@@ -122,10 +122,10 @@ data_b4_analyze %>%
 # Output =========================================================
 
 # print column names to copy/paste into Mplus VARIABLE argument
-an_coln <- colnames(data_b4_analyze) %>% str_c(collapse = " ") %>% noquote()
+an_coln <- colnames(data_mplus_ready) %>% str_c(collapse = " ") %>% noquote()
 an_coln
 
-write_rds(data_b4_analyze, here("analysis/data/derived_data/data-mplus-ready.rds"))
+write_rds(data_mplus_ready, here("analysis/data/derived_data/data-mplus-ready.rds"))
 
 
 
