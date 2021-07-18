@@ -1,0 +1,26 @@
+#' Extract input from mplus.model into list format suitable for \code{MplusAutomator::mplusObject()}
+#'
+#' This function uses `tidyverse` functions to extract input from 1 mplus.model so that after running \code{MplusAutomator::mplusObject()} I can use it to modify input using `MplusAutomator::update.mplusObject()`
+#'
+#' @param mplusmodel A single `mplus.model` object
+model_to_mplusObjList <- function(mplusmodel) {
+  mplusmodel %>%
+    purrr:pluck("input") %>%
+    purrr::set_names(toupper) %>%
+    purrr::map_at(vars(-TITLE),
+           ~ paste0(stringr::str_to_upper(names(.x)), " - ", .x, ";") %>%
+             str_c(collapse = " ")
+           )
+}
+
+#' Extract input from \code{mplus.model}, convert into mplusObject
+#'
+#' This function uses `tidyverse` functions to extract input from 1 object of type \code{mplus.model}, then it converts the input into object type \code{mplusObject}. This means I can use this extracted input to update the model specifications using `MplusAutomator::update.mplusObject()`.
+#'
+#' @param mplusmodel A single `mplus.model` object
+#' @export
+model_to_mplusObj <- function(mplusmodel) {
+  mplus_objList <- model_to_mplusObjList(mplusmodel)
+
+  do.call(MplusAutomator::mplusObject, mplus_objList)
+}
