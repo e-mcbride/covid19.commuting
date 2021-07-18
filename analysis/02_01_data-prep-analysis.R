@@ -2,7 +2,7 @@
 here::i_am("analysis/02_01_data-prep-analysis.R")
 library(here)
 library(tidyverse)
-library(tidymodels)
+# library(tidymodels)
 
 # data <- readr::read_rds(here("analysis/data/derived_data/data-newnames-completeonly.rds"))
 dictionary <- readr::read_rds("analysis/data/derived_data/clean-question-list.rds")
@@ -99,11 +99,12 @@ data_mplus_ready <- data_elim %>%
                                                "Disagree",
                                                "Neither Agree nor Disagree",
                                                "Agree",
-                                               "Strongly Agree"))) %>%
-  mutate(across(where(is.factor), as.numeric, .names = "score_{.col}")) %>%
-  select(-(where(is.factor))) %>%
-  mutate(across(starts_with("score_"), ordered)) %>%
-  rename_with(~gsub("score_", "", .x, fixed = TRUE))
+                                               "Strongly Agree"))) # %>%
+  # THESE LINES NO LONGER NEEDED with `MplusAutomation package`
+  # mutate(across(where(is.factor), as.numeric, .names = "score_{.col}")) %>%
+  # select(-(where(is.factor))) %>%
+  # mutate(across(starts_with("score_"), ordered)) %>%
+  # rename_with(~gsub("score_", "", .x, fixed = TRUE))
 
 
 # check if the releveling is working
@@ -122,8 +123,8 @@ data_mplus_ready %>%
 # Output =========================================================
 
 # print column names to copy/paste into Mplus VARIABLE argument
-an_coln <- colnames(data_mplus_ready) %>% str_c(collapse = " ") %>% noquote()
-an_coln
+colnames(data_mplus_ready) %>% str_c(collapse = " ") %>% noquote()
+
 
 write_rds(data_mplus_ready, here("analysis/data/derived_data/data-mplus-ready.rds"))
 
