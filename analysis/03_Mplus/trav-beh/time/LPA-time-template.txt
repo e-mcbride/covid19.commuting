@@ -1,0 +1,27 @@
+[[init]]
+iterators = classes;
+classes = 1:6;
+optseed#classes = "350608" "NA" "NA" "NA" "NA" "NA"
+outputDirectory = "analysis/03_Mplus/trav-beh/time/";
+filename = "[[classes]]-class_LPA_time.inp";
+[[/init]]
+TITLE: [[classes]]-class LPA: time spent traveling;
+DATA: FILE = "time-data-mplus-ready_b1f3824d559a16080946ac91baa81ef8.dat";
+VARIABLE:    NAMES = pid time_dal time_eco time_oth time_shr;
+             IDVAR = pid;
+             USEVAR = time_dal time_eco time_oth time_shr;
+             MISSING=.;
+             CLASSES = c([[classes]]);
+ANALYSIS: TYPE = MIXTURE;
+          PROCESSORS = 6(STARTS);
+!          STARTS = 500 100;
+!          STARTS = 1000 200;
+!          STARTS = 0; OPTSEED = [[optseed#classes]] ;
+!          K-1STARTS = 500 200;
+!          LRTSTARTS = 0 0 200 50;
+!PLOT: TYPE=PLOT3;
+!      SERIES = time_dal time_eco time_oth time_shr(*);
+[[classes > 1]]
+!OUTPUT: TECH11;
+!OUTPUT: TECH14;
+[[/classes > 1]]
