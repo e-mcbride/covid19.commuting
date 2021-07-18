@@ -2,7 +2,7 @@
 % Please edit documentation in R/model_to_mplusObj.R
 \name{model_to_mplusObjList}
 \alias{model_to_mplusObjList}
-\title{Extract input from mplus.model into list format suitable for \code{MplusAutomator::mplusObject()}}
+\title{Extract input from mplus.model into list format suitable for \code{MplusAutomation::mplusObject()}}
 \usage{
 model_to_mplusObjList(mplusmodel)
 }
@@ -10,5 +10,5 @@ model_to_mplusObjList(mplusmodel)
 \item{mplusmodel}{A single \code{mplus.model} object}
 }
 \description{
-This function uses \code{tidyverse} functions to extract input from 1 mplus.model so that after running \code{MplusAutomator::mplusObject()} I can use it to modify input using \code{MplusAutomator::update.mplusObject()}
+This function uses \code{tidyverse} functions to extract input from 1 mplus.model so that after running \code{MplusAutomation::mplusObject()} I can use it to modify input using \code{MplusAutomation::update.mplusObject()}
 }

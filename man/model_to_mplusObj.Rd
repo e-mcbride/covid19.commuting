@@ -10,5 +10,5 @@ model_to_mplusObj(mplusmodel)
 \item{mplusmodel}{A single \code{mplus.model} object}
 }
 \description{
-This function uses \code{tidyverse} functions to extract input from 1 object of type \code{mplus.model}, then it converts the input into object type \code{mplusObject}. This means I can use this extracted input to update the model specifications using \code{MplusAutomator::update.mplusObject()}.
+This function uses \code{tidyverse} functions to extract input from 1 object of type \code{mplus.model}, then it converts the input into object type \code{mplusObject}. This means I can use this extracted input to update the model specifications using \code{MplusAutomation::update.mplusObject()}.
 }
