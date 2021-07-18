@@ -1,0 +1,59 @@
+TITLE:
+    LPA of travel behavior variables;
+
+DATA:
+    FILE IS b4-data-analysis_att-cont.csv;
+
+VARIABLE:
+    NAMES ARE   pid 
+                b4_wdays b4_wfh b4_vmeet 
+                dst_dal dst_eco dst_oth dst_shr 
+                ntr_dal ntr_eco ntr_oth ntr_shr 
+                time_dal time_eco time_oth time_shr 
+                gender hinc b4_emp b4_wschd stu own_car 
+                q_dfr q_drx q_dnj q_crl q_csc q_tlf;
+
+    IDVARIABLE IS pid;
+
+    USEVAR ARE  dst_dal dst_eco dst_oth dst_shr;
+                !ntr_dal ntr_eco ntr_oth ntr_shr;
+
+    MISSING ARE ALL (-9999);
+
+    CLASSES ARE c(6);
+
+!    AUXILIARY = gender hinc b4_emp stu own_car;
+
+ANALYSIS:
+    TYPE = MIXTURE;
+    PROCESSORS = 6(STARTS);
+
+!    STARTS = 200 40;
+!    STARTS = 600 150;
+!    STARTS = 4000 1000;
+!    STARTS = 8000 2800;
+
+    STARTS = 0; OPTSEED = 514572;
+    ! For dst by itself:
+    ! c(1) 496881; c(2) 655497; c(3) 360419; c(4) 405079; c(5) 385042; c(6) 514572;
+
+   ! FOR DST AND NTR TOGETHER:
+   ! c(1) 153942; c(2) 22362; c(3) 471040; c(4) ; c(5) ; c(6) ;
+
+
+!    K-1STARTS = 1000 250;
+!    LRTSTARTS = 0 0 800 200;
+
+
+!OUTPUT:    TECH11;
+!OUTPUT:    TECH14;
+
+!PLOT: TYPE = PLOT3; 
+ !   SERIES = dst_dal dst_eco dst_oth dst_shr(*); 
+    !ntr_dal ntr_eco ntr_oth ntr_shr(*);
+
+SAVEDATA:	FILE IS lpa_travbeh_c6_save.txt;
+			SAVE IS CPROB;
+            missflag=9999;
+			FORMAT IS FREE;
+

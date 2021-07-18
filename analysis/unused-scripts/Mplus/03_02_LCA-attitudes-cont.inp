@@ -1,0 +1,52 @@
+TITLE:
+    LPA of attitudes as continuous;
+
+DATA:
+    FILE IS b4-data-analysis_att-cont.csv;
+
+VARIABLE:
+    NAMES ARE   pid 
+                b4_wdays b4_wfh b4_vmeet 
+                dst_dal dst_eco dst_oth dst_shr 
+                ntr_dal ntr_eco ntr_oth ntr_shr 
+                time_dal time_eco time_oth time_shr 
+                gender hinc b4_emp b4_wschd stu own_car 
+                q_dfr q_drx q_dnj q_crl q_csc q_tlf;
+
+    IDVARIABLE IS pid;
+
+    USEVAR ARE  q_dfr q_drx q_dnj q_crl q_csc q_tlf;
+
+    MISSING ARE ALL (-9999);
+
+    CLASSES ARE c(5);
+
+!    AUXILIARY = gender hinc b4_emp stu own_car;
+
+ANALYSIS:
+    TYPE = MIXTURE;
+    PROCESSORS = 6(STARTS);
+
+!    STARTS = 200 40;
+!    STARTS = 800 200;
+!    STARTS = 1000 250;
+
+    STARTS = 0; OPTSEED = 137305;
+   ! c(1) 405079; c(2) 113138; c(3) 608460; c(4) 726035; c(5) 137305; c(6) 887580;
+   ! c(7) 179022; c(8) 506113;
+
+!    K-1STARTS = 200 40;
+!    LRTSTARTS = 0 0 400 100;
+
+
+!OUTPUT:    TECH11;
+!OUTPUT:    TECH14;
+
+!PLOT: TYPE = PLOT3; SERIES = q_dfr q_drx q_dnj q_crl q_csc q_tlf(*);
+
+!SAVEDATA:	FILE IS lca-attit_c5_save.txt;
+!			SAVE IS CPROB;
+!            missflag=9999;
+!			FORMAT IS FREE;
+
+

@@ -26,26 +26,48 @@ VARIABLE:	NAMES ARE	pid
 	              	
 	CATEGORICAL ARE 
 					q_dfr_1-q_dfr_5 
-	              	q_drx_1-q_drx_5 
+	              	q_drx_1-q_drx_5
 	              	q_dnj_1-q_dnj_5 
 	              	q_crl_1-q_crl_5 
 	              	q_csc_1-q_csc_5 
 	              	q_tlf_1-q_tlf_5;
 	                          
 	
-	CLASSES ARE c(3);
+	CLASSES ARE c(6);
 	
 	MISSING ARE ALL (-9999);			
 
-ANALYSIS:	TYPE = MIXTURE;
-	STARTS = 1000 250;
-	
-	PROCESSORS = 6;
+ANALYSIS:	
+    TYPE = MIXTURE;
+!	STARTS = 200 40;
+    
+    STARTS = 4000 2000; ! number it took to replicate c(5) best ll 6x
+    STITERATIONS = 20;
+   
+!    STARTS = 0;
+!    OPTSEED = 383986; ! c(3) 468036; c(4) 80438; c(5) 383986 
 
+	PROCESSORS = 6(STARTS);
 
-SAVEDATA:	FILE IS lca1_save.txt;
-			SAVE IS CPROB;
-			FORMAT IS FREE;
+!    LRTSTARTS = 0 0 200 40;
 
-OUTPUT:		TECH11 TECH14;
+!    K-1STARTS = 700 300;
+
+!SAVEDATA:	FILE IS lca1_save.txt;
+!			SAVE IS CPROB;
+!			FORMAT IS FREE;
+
+!OUTPUT:		
+!    TECH11;
+!    TECH14;
+
+!PLOT:   
+!    type = plot3;
+!            series = 
+!                   q_dfr_1-q_dfr_5 
+!	              	q_drx_1-q_drx_5 
+!	              	q_dnj_1-q_dnj_5 
+!	              	q_crl_1-q_crl_5 
+!	              	q_csc_1-q_csc_5 
+!	              	q_tlf_1-q_tlf_5(*);
 
