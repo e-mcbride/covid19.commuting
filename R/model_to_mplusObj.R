@@ -5,7 +5,7 @@
 #' @param mplusmodel A single `mplus.model` object
 model_to_mplusObjList <- function(mplusmodel) {
   mplusmodel %>%
-    purrr:pluck("input") %>%
+    purrr::pluck("input") %>%
     purrr::set_names(toupper) %>%
     purrr::map_at(vars(-TITLE),
            ~ paste0(stringr::str_to_upper(names(.x)), " - ", .x, ";") %>%
