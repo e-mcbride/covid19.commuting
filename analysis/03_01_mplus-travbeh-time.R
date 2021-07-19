@@ -5,7 +5,7 @@ library(here)
 # here::here("analysis/03_01_mplus-travbeh-time.R")
 
 #import my function to write mplus data to file in the right file location
-source("R/write_mplus_data.R")
+devtools::load_all()
 
 data_mplus_ready <- read_rds(here("analysis/data/derived_data/data-mplus-ready.rds"))
 
@@ -22,21 +22,7 @@ write_mplus_data(df = time_mplus,
                  writeData = "ifmissing",
                  hashfilename = TRUE)
 
-createModels(templatefile = here("analysis/03_Mplus/trav-beh/time/LPA-time-template.txt"))
-
-# optimal seeds for each model (number is the number of classes)
-optseed1 <- 350608
-
-
-# runModels(
-#   here("analysis/03_Mplus/trav-beh/time/6-class_LPA_time.inp"),
-#   recursive=FALSE,
-#   replaceOutfile="modifiedDate")
 
 
 
-allOut <- readModels(
-  here("analysis/03_Mplus/trav-beh/time/"),
-  recursive = TRUE,
-  replaceOutFile="modifiedDate")
 
