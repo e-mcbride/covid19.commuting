@@ -1,7 +1,7 @@
 [[init]]
 iterators = classes;
 classes = 1:6;
-optseed#classes = "350608" "NA" "NA" "NA" "NA" "NA"
+optseed#classes = "350608" "NA" "NA" "NA" "NA" "NA";
 outputDirectory = "analysis/03_Mplus/trav-beh/time/";
 filename = "[[classes]]-class_LPA_time.inp";
 [[/init]]
@@ -13,8 +13,8 @@ VARIABLE:    NAMES = pid time_dal time_eco time_oth time_shr;
              MISSING=.;
              CLASSES = c([[classes]]);
 ANALYSIS: TYPE = MIXTURE;
-          PROCESSORS = 6(STARTS);
-!          STARTS = 500 100;
+          PROCESSORS = 12(STARTS);
+          STARTS = 500 100;
 !          STARTS = 1000 200;
 !          STARTS = 0; OPTSEED = [[optseed#classes]] ;
 !          K-1STARTS = 500 200;
