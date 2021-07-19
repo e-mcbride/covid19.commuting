@@ -30,6 +30,7 @@ LLrep_to_table <- function(mplusModel) {
 #' @param mplusModel An `mplusModel` object, only of a single model.
 #' @export
 LLreplication <- function(mplusModel) {
+  # TO DO: add functionality for table created using `LLrep_to_table`
   nrep <- LLrep_to_table(mplusModel) %>%
     dplyr::mutate(replicated = loglikelihood == max(loglikelihood)) %>%
     dplyr::summarise(reps = sum(replicated)) %>%
