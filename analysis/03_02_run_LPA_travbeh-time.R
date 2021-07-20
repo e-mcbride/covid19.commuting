@@ -11,4 +11,8 @@ ttoptseed1 <- 350608
 #   here("analysis/03_Mplus/trav-beh/time/"),
 #   recursive=TRUE)
 
+runModels(
+  here("analysis/03_Mplus/trav-beh/time/2-class_LPA_time.inp"),
+  recursive=TRUE)
+
 

@@ -2,7 +2,6 @@
 library(tidyverse)
 library(MplusAutomation)
 library(here)
-# here::here("analysis/03_01_mplus-travbeh-time.R")
 
 #import my function to write mplus data to file in the right file location
 devtools::load_all()

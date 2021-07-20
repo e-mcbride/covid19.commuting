@@ -1,31 +1,43 @@
+# Analyze travel time models, update and re-run
+# Imports =====
+library(tidyverse)
+library(here)
+library(MplusAutomation)
+devtools::load_all()
 
 allOut <- readModels(
   here("analysis/03_Mplus/trav-beh/time/"),
   recursive = FALSE)
 
+# Get the table of values =====
+tt_outs <- allOut %>%
+  enframe() %>%
+  transmute(name,
+            LLRepTbl = map(value, LLrep_to_table),
+            summaries = map(value, ~ .x$summaries),
+            nclasses = map(summaries, "NLatentClasses"),
+            Loglikelihood = map(summaries, "LL"),
+            BIC = map(summaries, "BIC"),
+            ABIC = map(summaries, "aBIC"),
+            BLRT_pval = map(summaries, "BLRT_PValue"),
+            VLMRT_pval = map(summaries, "T11_VLMR_PValue"),
+            Entropy = map(summaries, "Entropy"),
+            llnreps = map(value, LLreplication),
+            optseed = map(LLRepTbl,
+                          ~ .x %>% slice(1) %>% pull(seed)),
+            seedused = map(value, ~ .x$input$analysis$optseed),
+            t11_km1ll = map(summaries, "T11_KM1LL")
+            )
 
-# 2-class model =====================
+ggplot(tt_outs, aes(x = as.numeric(nclasses))) +
+  geom_line(aes(y = as.numeric(ABIC), color = "red")) +
+  geom_line(aes(y = as.numeric(BIC), color = "blue")) +
+  scale_color_discrete(name = "Legend", labels = c("ABIC", "BIC"))
 
-# pull the model out
-lpatime2 <- allOut$X2.class_lpa_time.out
-
-# check number of ll replications
-# Analyze and update models
-ttnrep2 <- LLreplication(lpatime2)
-
-# get OPTSEED value
-ttoptseed2 <- LLrep_to_table(lpatime2) %>%
-  dplyr::slice(1) %>%
-  pull(seed)
-
-# Extract "INP" from file to put into update.model
-lpatimeinp2 <- model_to_mplusObj(lpatime2) %>%
-  append(list(modelout = here("analysis/03_Mplus/trav-beh/time/2-class_LPA_time.inp")))
-
-hihi <- lpatimeinp2 %>% append(list(modelout = here("analysis/03_Mplus/trav-beh/time/2-class_LPA_time.inp")))
-
-mplusModeler(lpatimeinp2)
+fitstats <- tt_outs %>%
+  select(-name, -LLRepTbl, -summaries, -llnreps, -optseed, -seedused, -t11_km1ll) %>%
+  unnest(cols = c(nclasses, Loglikelihood, BIC, ABIC, BLRT_pval, VLMRT_pval,
+                  Entropy))
 
 
-ff <- update(lpatimeinp2,)
-
+write_csv(fitstats, here("analysis/03_Mplus/trav-beh/time/fitstats_LPA-time.csv"))
