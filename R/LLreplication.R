@@ -7,18 +7,28 @@
 LLrep_to_table <- function(mplusModel) {
   modoutput <- mplusModel$output
 
-  start <- which(modoutput %in% "Final stage loglikelihood values at local maxima, seeds, and initial stage start numbers:")
-  end <- which(modoutput %in% "MODEL FIT INFORMATION")
+  if(!any(modoutput %in% "Final stage loglikelihood values at local maxima, seeds, and initial stage start numbers:")) {
+    llrp <- data.frame(loglikelihood=NA, seed=NA, initStageStart=NA)
+  } else {
+    start <- which(modoutput %in% "Final stage loglikelihood values at local maxima, seeds, and initial stage start numbers:")
+    end <- which(modoutput %in% "MODEL FIT INFORMATION")
 
-  llrp <- modoutput[start:end] %>%
-    stringr::str_extract_all("(-?[:digit:]+.?[:digit:]+)", simplify = T) %>%
-    as.data.frame()
-  if(ncol(llrp) != 3) {
-    warning("There was a problem extracting the loglikelihood replication table")
+    wholeSect <- modoutput[start:end]
+    llrp <- wholeSect[!(stringr::str_detect(wholeSect,"[:alpha:]"))] %>%
+      stringr::str_extract_all("(-?[:digit:]+.?[:digit:]+)", simplify = T) %>%
+      as.data.frame()
+
+    # llrp <- wholeSect %>%
+    #   stringr::str_extract_all("(-?[:digit:]+.?[:digit:]+)", simplify = T) %>%
+    #   as.data.frame()
+
+    if(ncol(llrp) != 3) {
+      warning("There was a problem extracting the loglikelihood replication table")
+    }
+    llrp <- llrp %>%
+      dplyr::rename("loglikelihood" = V1, "seed" = V2, "initStageStart" = V3) %>%
+      filter(loglikelihood != "")
   }
-  llrp <- llrp %>%
-    dplyr::rename("loglikelihood" = V1, "seed" = V2, "initStageStart" = V3) %>%
-    filter(loglikelihood != "")
 
   return(llrp)
 }
@@ -31,10 +41,16 @@ LLrep_to_table <- function(mplusModel) {
 #' @export
 LLreplication <- function(mplusModel) {
   # TO DO: add functionality for table created using `LLrep_to_table`
-  nrep <- LLrep_to_table(mplusModel) %>%
-    dplyr::mutate(replicated = loglikelihood == max(loglikelihood)) %>%
-    dplyr::summarise(reps = sum(replicated)) %>%
-    dplyr::pull(reps)
-  message(paste0("Max Loglikelihood replicated ", nrep, " times."))
-  return(nrep)
+  if(!is.data.frame(LLrep_to_table(mplusModel))) {
+    nrep <- NA
+    message("Model does not contain a loglikelihood replication table")
+  } else {
+    nrep <- LLrep_to_table(mplusModel) %>%
+      dplyr::mutate(across(everything(), as.numeric)) %>%
+      dplyr::mutate(replicated = loglikelihood == max(loglikelihood)) %>%
+      dplyr::summarise(reps = sum(replicated)) %>%
+      dplyr::pull(reps)
+    message(paste0("Max Loglikelihood replicated ", nrep, " times."))
+    }
+    return(nrep)
 }

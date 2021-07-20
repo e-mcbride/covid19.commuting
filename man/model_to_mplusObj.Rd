@@ -2,12 +2,12 @@
 % Please edit documentation in R/model_to_mplusObj.R
 \name{model_to_mplusObj}
 \alias{model_to_mplusObj}
-\title{Extract input from \code{mplus.model}, convert into mplusObject}
+\title{Extract input from \code{mplus.inp}, convert into mplusObject}
 \usage{
-model_to_mplusObj(mplusmodel)
+model_to_mplusObj(mplusmodelinp)
 }
 \arguments{
-\item{mplusmodel}{A single \code{mplus.model} object}
+\item{mplusmodelinp}{A single \code{mplus.inp} object}
 }
 \description{
 This function uses \code{tidyverse} functions to extract input from 1 object of type \code{mplus.model}, then it converts the input into object type \code{mplusObject}. This means I can use this extracted input to update the model specifications using \code{MplusAutomation::update.mplusObject()}.

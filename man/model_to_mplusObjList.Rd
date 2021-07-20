@@ -4,10 +4,10 @@
 \alias{model_to_mplusObjList}
 \title{Extract input from mplus.model into list format suitable for \code{MplusAutomation::mplusObject()}}
 \usage{
-model_to_mplusObjList(mplusmodel)
+model_to_mplusObjList(mplusmodelinp)
 }
 \arguments{
-\item{mplusmodel}{A single \code{mplus.model} object}
+\item{mplusmodelinp}{A single \code{mplus.inp} object}
 }
 \description{
 This function uses \code{tidyverse} functions to extract input from 1 mplus.model so that after running \code{MplusAutomation::mplusObject()} I can use it to modify input using \code{MplusAutomation::update.mplusObject()}
