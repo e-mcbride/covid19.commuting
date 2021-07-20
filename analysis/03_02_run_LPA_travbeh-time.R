@@ -1,5 +1,5 @@
 # Create travel time models
-createModels(templatefile = here("analysis/03_Mplus/trav-beh/time/LPA-time-template.txt"))
+# createModels(templatefile = here("analysis/03_Mplus/trav-beh/time/LPA-time-template.txt"))
 
 # below runModles is commented out because
 # ERROR when using the following method in `runModels()`:
