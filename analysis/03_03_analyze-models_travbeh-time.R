@@ -41,3 +41,4 @@ fitstats <- tt_outs %>%
 
 
 write_csv(fitstats, here("analysis/03_Mplus/trav-beh/time/fitstats_LPA-time.csv"))
+write_csv(fitstats, here("analysis/figures/fitstats_LPA-time.csv"))
