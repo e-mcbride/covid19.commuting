@@ -5,12 +5,12 @@ library(here)
 library(MplusAutomation)
 devtools::load_all()
 
-allOut <- readModels(
+allOut_att <- readModels(
   here("analysis/03_Mplus/attitudes/"),
   recursive = FALSE)
 
 # Get the table of values =====
-tt_outs <- allOut %>%
+tt_outs_att <- allOut_att %>%
   enframe() %>%
   transmute(name,
             LLRepTbl = map(value, LLrep_to_table),
@@ -29,16 +29,16 @@ tt_outs <- allOut %>%
             t11_km1ll = map(summaries, "T11_KM1LL")
   )
 
-ggplot(tt_outs, aes(x = as.numeric(nclasses))) +
+ggplot(tt_outs_att, aes(x = as.numeric(nclasses))) +
   geom_line(aes(y = as.numeric(ABIC), color = "red")) +
   geom_line(aes(y = as.numeric(BIC), color = "blue")) +
   scale_color_discrete(name = "Legend", labels = c("ABIC", "BIC"))
 
-fitstats <- tt_outs %>%
+fitstats_att <- tt_outs_att %>%
   select(-name, -LLRepTbl, -summaries, -llnreps, -optseed, -seedused, -t11_km1ll) %>%
   unnest(cols = c(nclasses, Loglikelihood, BIC, ABIC, BLRT_pval, VLMRT_pval,
                   Entropy))
 
 
-write_csv(fitstats, here("analysis/03_Mplus/attitudes/fitstats_LPA-att.csv"))
-write_csv(fitstats, here("analysis/figures/fitstats_LPA-att.csv"))
+write_csv(fitstats_att, here("analysis/03_Mplus/attitudes/fitstats_LPA-att.csv"))
+write_csv(fitstats_att, here("analysis/figures/fitstats_LPA-att.csv"))
