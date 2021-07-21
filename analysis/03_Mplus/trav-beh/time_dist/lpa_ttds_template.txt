@@ -5,7 +5,7 @@ outputDirectory = "analysis/03_Mplus/trav-beh/time_dist/";
 filename = "[[classes]]-class_LPA_ttds.inp";
 [[/init]]
 TITLE: [[classes]]-class LPA: distance and time spent traveling;
-DATA: FILE = "ttds-data-mplus-ready_b1f3824d559a16080946ac91baa81ef8.dat";
+DATA: FILE = "ttds-data-mplus-ready_b119932d1ee3f92290853a0b560ec7e7.dat";
 VARIABLE:    NAMES = pid time_dal time_eco time_oth time_shr dst_dal dst_eco dst_oth dst_shr;
              IDVAR = pid;
              USEVAR = time_dal time_eco time_oth time_shr dst_dal dst_eco dst_oth dst_shr;

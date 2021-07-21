@@ -1,5 +1,5 @@
 TITLE: 6-class LPA: distance and time spent traveling;
-DATA: FILE = "ttds-data-mplus-ready_b1f3824d559a16080946ac91baa81ef8.dat";
+DATA: FILE = "ttds-data-mplus-ready_b119932d1ee3f92290853a0b560ec7e7.dat";
 VARIABLE: NAMES = pid time_dal time_eco time_oth time_shr dst_dal dst_eco dst_oth
      dst_shr;
              IDVAR = pid;
@@ -7,15 +7,15 @@ VARIABLE: NAMES = pid time_dal time_eco time_oth time_shr dst_dal dst_eco dst_ot
              MISSING=.;
              CLASSES = c(6);
 ANALYSIS: TYPE = MIXTURE;
-          PROCESSORS = 12(STARTS);
-          STARTS = 500 100;
+          PROCESSORS = 6(STARTS);
+!          STARTS = 500 100;
           STSCALE = 30;
-!          STARTS = 1000 200;
+          STARTS = 10000 1000;
 !          STARTS = 0;
-!          OPTSEED = ;
+!          OPTSEED = 614098; ! for STSCALE = 20;
 !          K-1STARTS = 500 200;
-!          LRTSTARTS = 0 0 200 50;
-!PLOT: TYPE=PLOT3;
-!      SERIES = time_dal time_eco time_oth time_shr dst_dal dst_eco dst_oth dst_shr(*);
-!OUTPUT: TECH11;
-!OUTPUT: TECH14;
+!          LRTSTARTS = 0 0 6000 1200;
+PLOT: TYPE=PLOT3;
+      SERIES = time_dal time_eco time_oth time_shr dst_dal dst_eco dst_oth dst_shr(*);
+OUTPUT: TECH11;
+OUTPUT: TECH14;
