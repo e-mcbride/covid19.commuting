@@ -18,3 +18,8 @@ PLOT: TYPE=PLOT3;
       SERIES = time_dal time_eco time_oth time_shr(*);
 OUTPUT: TECH11;
 OUTPUT: TECH14;
+
+SAVEDATA:	FILE IS lpa_time_c4_save.txt;
+			SAVE IS CPROB;
+            MISSFLAG=9999;
+			FORMAT IS FREE;
