@@ -18,8 +18,8 @@ pids_no_WS <- data_elim %>%
 
 # Build new dataset without them ========
 
-data_mplus_ready <- read_rds(here("analysis/data/derived_data/data-mplus-ready.rds"))
-
+# this is a new dataset where eco has been separated into train and bike/walk
+data_mplus_ready <- read_rds(here("analysis/data/derived_data/data_4mode-mplus-ready.rds"))
 
 # take mplus-ready data, filter out the non-working or schooling ppl
 timeWS_mplus <- data_mplus_ready %>%
