@@ -76,7 +76,14 @@ ggsave(plot = ipps_time,"analysis/figures/ipps_time.png", width = 6.5, height = 
 ipp_time3 <- allOut_time$X3.class_lpa_time.out %>% create_ipps()
 ipp_time3
 
+est_dat_time <- add_estcount(outfile = allOut_time)
+
+classCounts_time <- est_dat_time %>%
+  group_by(name, Class) %>%
+  summarise(count)
+
 classCounts_time3 <- classCounts_time %>% filter(str_detect(name, "3"))
+classCounts_time4 <- classCounts_time %>% filter(str_detect(name, "4"))
 
 
 ipp_time4 <- allOut_time$X4.class_lpa_time.out %>% create_ipps()
@@ -86,12 +93,8 @@ ggsave(plot = ipp_time4, "analysis/figures/ipp_time4.png", width = 6.5, height =
 
 
 
-est_dat_time <- add_estcount(outfile = allOut_time)
-classCounts_time <- est_dat_time %>%
-  group_by(name, Class) %>%
-  summarise(count)
 
-classCounts_time4 <- classCounts_time %>% filter(str_detect(name, "4"))
+
 
 
 
