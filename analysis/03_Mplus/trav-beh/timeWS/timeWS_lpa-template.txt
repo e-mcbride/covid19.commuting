@@ -1,0 +1,36 @@
+[[init]]
+iterators = classes;
+classes = 1:6;
+outputDirectory = "analysis/03_Mplus/trav-beh/timeWS/";
+filename = "[[classes]]-class_LPA_timeWS.inp";
+[[/init]]
+TITLE: [[classes]]-class LPA: Time spent traveling to/from work and/or school;
+DATA: FILE = "timeWS-data-mplus-ready_dc0ffa7841a1d68c49f57babf71315c5.dat";
+VARIABLE:    NAMES = pid time_dal time_eco time_oth time_shr;
+             IDVAR = pid;
+             USEVAR = time_dal time_eco time_oth time_shr;
+             MISSING=.;
+             CLASSES = c([[classes]]);
+ANALYSIS: TYPE = MIXTURE;
+          PROCESSORS = 12(STARTS);
+          STSCALE = 20;
+          [[classes < 3]]
+          STARTS = 500 100;
+          [[/classes < 3]]
+          [[classes > 2]]
+          STARTS = 1000 200;
+          [[/classes > 2]]
+!          STARTS = 0;
+!          OPTSEED = ;
+!          K-1STARTS = 500 200;
+!          LRTSTARTS = 0 0 200 50;
+!PLOT: TYPE=PLOT3;
+!      SERIES = time_dal time_eco time_oth time_shr(*);
+[[classes > 1]]
+!OUTPUT: TECH11;
+!OUTPUT: TECH14;
+[[/classes > 1]]
+!SAVEDATA:	FILE IS lpa_timeWS_c[[classes]]_save.txt;
+!			SAVE IS CPROB;
+!            MISSFLAG=9999;
+!			FORMAT IS FREE;
