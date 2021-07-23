@@ -23,5 +23,12 @@ write_mplus_data(df = time_mplus,
 
 
 
+# box plots
+bxplt_dt <- time_mplus %>%
+  pivot_longer(cols = -pid, names_to = "mode")
 
+ggplot(bxplt_dt, aes(x = mode, y = value)) +
+  # geom_boxplot()
+  geom_violin()
 
+ggplot(time_mplus) + geom_bar(aes(x = time_dal))
