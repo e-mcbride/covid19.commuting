@@ -13,8 +13,13 @@ ANALYSIS: TYPE = MIXTURE;
           STARTS = 0;
           OPTSEED =  49293;
 !          K-1STARTS = 500 200;
-          LRTSTARTS = 0 0 1000 400;
-PLOT: TYPE=PLOT3;
-      SERIES = q_dfr q_drx q_dnj q_crl q_csc q_tlf(*);
-OUTPUT: TECH11;
-OUTPUT: TECH14;
+!          LRTSTARTS = 0 0 1000 400;
+!PLOT: TYPE=PLOT3;
+!      SERIES = q_dfr q_drx q_dnj q_crl q_csc q_tlf(*);
+!OUTPUT: TECH11;
+!OUTPUT: TECH14;
+
+SAVEDATA:	FILE IS lpa_att_c5_save.txt;
+			SAVE IS CPROB;
+            MISSFLAG=9999;
+			FORMAT IS FREE;
