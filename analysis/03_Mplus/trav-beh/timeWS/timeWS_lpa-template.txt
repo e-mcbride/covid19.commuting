@@ -5,14 +5,14 @@ outputDirectory = "analysis/03_Mplus/trav-beh/timeWS/";
 filename = "[[classes]]-class_LPA_timeWS.inp";
 [[/init]]
 TITLE: [[classes]]-class LPA: Time spent traveling to/from work and/or school;
-DATA: FILE = "timeWS-data-mplus-ready_dc0ffa7841a1d68c49f57babf71315c5.dat";
-VARIABLE:    NAMES = pid time_dal time_eco time_oth time_shr;
+DATA: FILE = "timeWS-data-mplus-ready_008549e6c18089e1da90ad084cefde8c.dat";
+VARIABLE:    NAMES = pid time_act time_dal time_oth time_shr time_trn;
              IDVAR = pid;
-             USEVAR = time_dal time_eco time_oth time_shr;
+             USEVAR = time_act time_dal time_oth time_shr time_trn;
              MISSING=.;
              CLASSES = c([[classes]]);
 ANALYSIS: TYPE = MIXTURE;
-          PROCESSORS = 12(STARTS);
+          PROCESSORS = 6(STARTS);
           STSCALE = 20;
           [[classes < 3]]
           STARTS = 500 100;
@@ -25,7 +25,7 @@ ANALYSIS: TYPE = MIXTURE;
 !          K-1STARTS = 500 200;
 !          LRTSTARTS = 0 0 200 50;
 !PLOT: TYPE=PLOT3;
-!      SERIES = time_dal time_eco time_oth time_shr(*);
+!      SERIES = time_act time_dal time_oth time_shr time_trn(*);
 [[classes > 1]]
 !OUTPUT: TECH11;
 !OUTPUT: TECH14;
