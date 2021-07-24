@@ -36,15 +36,6 @@ write_mplus_data(df = timeWS_mplus,
                  writeData = "ifmissing",
                  hashfilename = TRUE)
 
-# Create travel time B models =============
-
-
-# createModels(templatefile = here("analysis/03_Mplus/trav-beh/timeWS/timeWS_lpa-template.txt"))#, recursive = F)
-#
-# runModels(
-#   here("analysis/03_Mplus/trav-beh/timeWS/"),
-#   recursive=F)
-
 
 
 # Analyze travel time models, update and re-run ===================
@@ -79,7 +70,8 @@ ttWS_outs <- allOut_tWS %>%
 fitstats <- ttWS_outs %>%
   select(-name, -LLRepTbl, -summaries, -llnreps, -optseed, -seedused, -t11_km1ll) %>%
   unnest(cols = c(nclasses, Loglikelihood, BIC, ABIC, BLRT_pval, VLMRT_pval,
-                  Entropy))
+                  Entropy)) %>%
+  filter(nclasses < 6)
 
 ggplot(ttWS_outs, aes(x = as.numeric(nclasses))) +
   geom_line(aes(y = as.numeric(ABIC), color = "red")) +
