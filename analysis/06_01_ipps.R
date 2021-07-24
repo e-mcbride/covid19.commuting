@@ -61,7 +61,7 @@ add_estcount <- function(outfile) {
 ### Travel time -------------------------------------------------------------
 
 allOut_time <- readModels(
-  here("analysis/03_Mplus/trav-beh/time/"),
+  here("analysis/03_Mplus/trav-beh/timeWS/"),
   recursive = FALSE)
 
 ipps_time <- create_ipps(allOut_time)
@@ -71,7 +71,7 @@ ipps_time
 # ipps_time +
 #   geom_label_repel(data = est_dat_time, aes(label = count))#, x = Variable, y = Value))
 
-ggsave(plot = ipps_time,"analysis/figures/ipps_time.png", width = 6.5, height = 4.5)
+ggsave(plot = ipps_time,"analysis/figures/ipps_timeWS.png", width = 6.5, height = 4.5)
 
 ipp_time3 <- allOut_time$X3.class_lpa_time.out %>% create_ipps()
 ipp_time3
@@ -86,14 +86,14 @@ classCounts_time3 <- classCounts_time %>% filter(str_detect(name, "3"))
 classCounts_time4 <- classCounts_time %>% filter(str_detect(name, "4"))
 
 
-ipp_time4 <- allOut_time$X4.class_lpa_time.out %>% create_ipps()
+ipp_time4 <- allOut_time$X4.class_lpa_timews.out %>% create_ipps()
 ipp_time4
 
-ggsave(plot = ipp_time4, "analysis/figures/ipp_time4.png", width = 6.5, height = 4)
+ggsave(plot = ipp_time4, "analysis/figures/ipp_timeWS4.png", width = 6.5, height = 4)
 
 
 
-
+modelist <- c("Biking & Walking", "Driving Alone", "Using Other Modes", "Sharing a Car", "Taking Transit")
 
 
 

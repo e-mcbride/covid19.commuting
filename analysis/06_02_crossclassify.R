@@ -7,8 +7,8 @@ library(MplusAutomation)
 library(janitor)
 devtools::load_all()
 
-allOut_time <- readModels(
-  here("analysis/03_Mplus/trav-beh/time/"),
+allOut_tWS <- readModels(
+  here("analysis/03_Mplus/trav-beh/timeWS/"),
   recursive = FALSE)
 
 allOut_att <- readModels(
