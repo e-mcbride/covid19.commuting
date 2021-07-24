@@ -9,3 +9,4 @@
 *.out
 analysis/03_Mplus/*.txt
 *.gh5
+Mplus Run Models.log
