@@ -39,11 +39,11 @@ write_mplus_data(df = timeWS_mplus,
 # Create travel time B models =============
 
 
-createModels(templatefile = here("analysis/03_Mplus/trav-beh/timeWS/timeWS_lpa-template.txt"))#, recursive = F)
-
-runModels(
-  here("analysis/03_Mplus/trav-beh/timeWS/"),
-  recursive=F)
+# createModels(templatefile = here("analysis/03_Mplus/trav-beh/timeWS/timeWS_lpa-template.txt"))#, recursive = F)
+#
+# runModels(
+#   here("analysis/03_Mplus/trav-beh/timeWS/"),
+#   recursive=F)
 
 
 
