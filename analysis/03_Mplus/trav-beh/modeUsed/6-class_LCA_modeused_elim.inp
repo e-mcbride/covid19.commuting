@@ -1,0 +1,24 @@
+TITLE: 6-class LCA: Mode used to get to work/school, cleaner data
+DATA: FILE = "timeWS-data-mplus-ready2_078ed682c2adfb7cc72334404f5a4453.dat";
+VARIABLE:    NAMES = pid bik wlk trn dal dot pas oth wsfh;
+             IDVAR = pid;
+             USEVAR = bik wlk trn dal dot pas oth wsfh;
+             CATEGORICAL = bik wlk trn dal dot pas oth wsfh;
+             MISSING=.;
+             CLASSES = c(6);
+ANALYSIS: TYPE = MIXTURE;
+          PROCESSORS = 6(STARTS);
+          STSCALE = 30;
+!          STARTS = 4000 1000;
+          STARTS = 0;
+          OPTSEED = 149046;
+          K-1STARTS = 500 125;
+          LRTSTARTS = 0 0 200 50;
+PLOT: TYPE=PLOT3;
+      SERIES = bik wlk trn dal dot pas oth wsfh(*);
+OUTPUT: TECH11;
+OUTPUT: TECH14;
+!SAVEDATA:	FILE IS lpa_timeWS_c6_save.txt;
+!			SAVE IS CPROB;
+!            MISSFLAG=9999;
+!			FORMAT IS FREE;
