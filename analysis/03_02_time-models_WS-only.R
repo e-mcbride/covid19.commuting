@@ -8,7 +8,7 @@ devtools::load_all()
 
 
 # Extract pids of ppl who were not working or in school before pandemic
-data_elim <- read_rds("analysis/data/derived_data/data-good-cases.rds")
+data_elim <- read_rds(here("analysis/data/derived_data/data-good-cases.rds"))
 
 pids_no_WS <- data_elim %>%
   filter(b4_emp == "No" & stu == "No") %>%
@@ -36,7 +36,11 @@ write_mplus_data(df = timeWS_mplus,
                  writeData = "ifmissing",
                  hashfilename = TRUE)
 
+# # create models from the template ==============================
+# createModels(templatefile = here("analysis/03_Mplus/trav-beh/timeWS/timeWS_lpa-template.txt"))
 
+# Run models ================================================================
+# runModels(here("analysis/03_Mplus/trav-beh/timeWS/"))
 
 # Analyze travel time models, update and re-run ===================
 
