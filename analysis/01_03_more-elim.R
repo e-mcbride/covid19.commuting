@@ -8,8 +8,10 @@ library(janitor)
 
 data_elim <- read_rds("analysis/data/derived_data/data-good-cases.rds")
 data_comp <- read_rds("analysis/data/derived_data/data-newnames-completeonly.rds")
+dictionary <- readr::read_rds("analysis/data/derived_data/clean-question-list.rds")
 
 # use janitor::get_dupes() ==========================
+
 dupes_pid <- data_elim %>%
   # filter "No" for b4_emp or stu cuz ppl who said "No" to both will all have the same
   filter(stu != "No" | b4_emp != "No") %>%
@@ -63,7 +65,7 @@ toolong_pid <- data_elim %>%
   pull(pid)
 
 # manually chosen/found to be bad ===========================
-manual <- c(11607464996, 11605132339, 11598947615, 11598919471, 11617002199, 11616864430)
+manual <- c(11598150120, 11607464996, 11605132339, 11598947615, 11598919471, 11617002199, 11616864430)
 
 
 # Build the list ###################################################################
@@ -73,7 +75,7 @@ dupers <- data_elim %>%
   filter(pid %in% pid_list)
 
 
-# number of ppl in household
+
 
 
 
@@ -82,6 +84,10 @@ dupers <- data_elim %>%
 
 nondupers <- data_elim %>%
   filter(!(pid %in% pid_list))
+
+nonduper_pids <- nondupers %>%
+  pull(pid)
+
 
 
 
