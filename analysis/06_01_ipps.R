@@ -8,11 +8,75 @@ devtools::load_all()
 
 
 # Item Probability Plots (IPPs)==================
+## Fn: Plot mixtures for LCA probability scale --------------------------
+
+# This fn taken and edited from source code for MplusAutomation::plotMixtures().
+# I had to do this to get it to plot the line graphs for LCA probability scale
+plotMixtures.probscale <- function(modelList, coefficients, paramCat) {
+  # select the category to plot (cat 2),
+  plotdat <-
+    lapply(modelList, function(x) {
+      subset(x$parameters[[coefficients]], x$parameters[[coefficients]]$category == paramCat)
+    })
+
+  # Bind into one df with identifying variable
+
+  plotdat <- do.call(rbind, lapply(names(modelList), function(x) {
+    data.frame(Title = modelList[[x]]$input$title, plotdat[[x]])
+  }))
+
+  # Drop useless stuff
+  plotdat <- plotdat %>% select(-est_se, -pval, -category)
+
+  # Get some classy names
+  names(plotdat)[which(names(plotdat) %in% c("param", "est", "LatentClass"))] <-
+    c("Variable", "Value", "Class")
+
+  plotdat$Variable <- factor(plotdat$Variable, levels = c("BIK", "WLK", "TRN", "DAL", "DOT", "PAS", "OTH", "WSFH"))
+
+  levels(plotdat$Variable) <- paste0(toupper(substring(levels(plotdat$Variable), 1, 1)), tolower(substring(levels(plotdat$Variable), 2)))
+
+
+  classplotdat <-
+    ggplot(
+      NULL,
+      aes_string(
+        x = "Variable",
+        y = "Value",
+        group = "Class",
+        linetype = "Class",
+        shape = "Class",
+        colour = "Class"
+      )
+    )
+
+  classplot <- classplotdat + geom_point(data = plotdat) +
+    geom_line(data = plotdat) +
+    theme_bw()
+
+  if (length(modelList) > 1) {
+    classplot <- classplot + facet_wrap(~ Title)
+  }
+  return(classplot)
+}
+
 
 ## Fn: Create IPPs ------------------------------------------
-create_ipps <- function(outfile) {
+create_ipps <- function(outfile, parameter = "Means") {
   outfile %>%
-    plotMixtures(parameter = "Means", ci = NULL) +
+    plotMixtures(parameter = parameter, ci = NULL) +
+
+    # ggplot specifications
+    aes(linetype = "solid", shape = "circle") +
+    guides(linetype = 'none', shape = "none") +
+    facet_wrap(~ Title, scales = "free_y", ncol = 2) +
+    theme(strip.text = element_text(size = 9),
+          legend.title = element_text(size = 9),
+          text = element_text(size = 8, family = "serif"))
+}
+
+create_ipps.probscale <- function(outfile, coefficients, paramCat) {
+  plotMixtures.probscale(modelList = outfile, coefficients, paramCat) + #parameter = parameter, ci = NULL) +
 
     # ggplot specifications
     aes(linetype = "solid", shape = "circle") +
@@ -58,38 +122,43 @@ add_estcount <- function(outfile) {
 
 ## Exec IPP creation -------------------------------
 
-### Travel time -------------------------------------------------------------
+### Travel Mode -------------------------------------------------------------
 
-allOut_time <- readModels(
-  here("analysis/03_Mplus/trav-beh/timeWS/"),
+allOut_mode <- readModels(
+  here("analysis/03_Mplus/trav-beh/modeUsed/"),
   recursive = FALSE)
 
-ipps_time <- create_ipps(allOut_time)
+allOut_mode %>% plotMixtures(parameter = "Thresholds", coefficients = "probability.scale" , ci = NULL)
 
-ipps_time
 
-# ipps_time +
-#   geom_label_repel(data = est_dat_time, aes(label = count))#, x = Variable, y = Value))
+ipps_mode <- create_ipps.probscale(outfile = allOut_mode,
+                                   coefficients = "probability.scale",
+                                   paramCat = 2)
 
-ggsave(plot = ipps_time,"analysis/figures/ipps_timeWS.png", width = 6.5, height = 4.5)
+ipps_mode
 
-ipp_time3 <- allOut_time$X3.class_lpa_time.out %>% create_ipps()
-ipp_time3
+# ipps_mode +
+#   geom_label_repel(data = est_dat_mode, aes(label = count))#, x = Variable, y = Value))
 
-est_dat_time <- add_estcount(outfile = allOut_time)
+ggsave(plot = ipps_mode,"analysis/figures/ipps_modeWS.png", width = 6.5, height = 4.5)
 
-classCounts_time <- est_dat_time %>%
+ipp_mode3 <- allOut_mode$X3.class_lpa_modeused.out %>% create_ipps()
+ipp_mode3
+
+est_dat_mode <- add_estcount(outfile = allOut_mode)
+
+classCounts_mode <- est_dat_mode %>%
   group_by(name, Class) %>%
   summarise(count)
 
-classCounts_time3 <- classCounts_time %>% filter(str_detect(name, "3"))
-classCounts_time4 <- classCounts_time %>% filter(str_detect(name, "4"))
+classCounts_mode3 <- classCounts_mode %>% filter(str_detect(name, "3"))
+classCounts_mode4 <- classCounts_mode %>% filter(str_detect(name, "4"))
 
 
-ipp_time4 <- allOut_time$X4.class_lpa_timews.out %>% create_ipps()
-ipp_time4
+ipp_mode4 <- allOut_mode$X4.class_lpa_modeused.out %>% create_ipps()
+ipp_mode4
 
-ggsave(plot = ipp_time4, "analysis/figures/ipp_timeWS4.png", width = 6.5, height = 4)
+ggsave(plot = ipp_mode4, "analysis/figures/ipp_modeWS4.png", width = 6.5, height = 4)
 
 
 
