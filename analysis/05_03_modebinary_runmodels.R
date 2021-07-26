@@ -81,6 +81,9 @@ fitstats <- tmode_outs %>%
                   Entropy)) # %>%
   # filter(nclasses < 6) EM: trying binary
 
+write_csv(fitstats, here("analysis/figures/fitstats_LCA_mode.csv"))
+
+
 ggplot(tmode_outs, aes(x = as.numeric(nclasses))) +
   geom_line(aes(y = as.numeric(ABIC), color = "red")) +
   geom_line(aes(y = as.numeric(BIC), color = "blue")) +

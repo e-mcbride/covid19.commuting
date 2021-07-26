@@ -1,4 +1,4 @@
-TITLE: 2-class LCA: Mode used to get to work/school, cleaner data
+TITLE: 2-class LCA: Mode used to get to work/school
 DATA: FILE = "timeWS-data-mplus-ready2_078ed682c2adfb7cc72334404f5a4453.dat";
 VARIABLE:    NAMES = pid bik wlk trn dal dot pas oth wsfh;
              IDVAR = pid;
