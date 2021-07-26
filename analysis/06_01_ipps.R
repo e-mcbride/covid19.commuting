@@ -12,7 +12,11 @@ devtools::load_all()
 
 # This fn taken and edited from source code for MplusAutomation::plotMixtures().
 # I had to do this to get it to plot the line graphs for LCA probability scale
-plotMixtures.probscale <- function(modelList, coefficients, paramCat) {
+
+plotMixtures.probscale <- function(modelList,
+                                   coefficients,
+                                   paramCat,
+                                   paramOrder = c("bik", "wlk", "trn", "dal", "dot", "pas", "oth", "wsfh")) {
   # select the category to plot (cat 2),
   plotdat <-
     lapply(modelList, function(x) {
@@ -32,7 +36,7 @@ plotMixtures.probscale <- function(modelList, coefficients, paramCat) {
   names(plotdat)[which(names(plotdat) %in% c("param", "est", "LatentClass"))] <-
     c("Variable", "Value", "Class")
 
-  plotdat$Variable <- factor(plotdat$Variable, levels = c("BIK", "WLK", "TRN", "DAL", "DOT", "PAS", "OTH", "WSFH"))
+  plotdat$Variable <- factor(plotdat$Variable, levels = toupper(paramOrder))
 
   levels(plotdat$Variable) <- paste0(toupper(substring(levels(plotdat$Variable), 1, 1)), tolower(substring(levels(plotdat$Variable), 2)))
 
@@ -75,16 +79,19 @@ create_ipps <- function(outfile, parameter = "Means") {
           text = element_text(size = 8, family = "serif"))
 }
 
-create_ipps.probscale <- function(outfile, coefficients, paramCat) {
-  plotMixtures.probscale(modelList = outfile, coefficients, paramCat) + #parameter = parameter, ci = NULL) +
+create_ipps.probscale <- function(outfile,
+                                  coefficients,
+                                  paramCat,
+                                  paramOrder = c("bik", "wlk", "trn", "dal", "dot", "pas", "oth", "wsfh")) {
+  plotMixtures.probscale(modelList = outfile, coefficients, paramCat, paramOrder) + #parameter = parameter, ci = NULL) +
 
     # ggplot specifications
     aes(linetype = "solid", shape = "circle") +
     guides(linetype = 'none', shape = "none") +
     facet_wrap(~ Title, scales = "free_y", ncol = 2) +
-    theme(strip.text = element_text(size = 9),
-          legend.title = element_text(size = 9),
-          text = element_text(size = 8, family = "serif"))
+    theme(strip.text = element_text(size = 11),
+          legend.title = element_text(size = 10),
+          text = element_text(size = 10, family = "serif"))
 }
 
 ## Fn: add counts of estimates ---------------------------------
@@ -128,41 +135,50 @@ allOut_mode <- readModels(
   here("analysis/03_Mplus/trav-beh/modeUsed/"),
   recursive = FALSE)
 
-allOut_mode %>% plotMixtures(parameter = "Thresholds", coefficients = "probability.scale" , ci = NULL)
+modeOrder <- c('dot' = "Driving Others", 'pas' = "Riding as Passenger",
+               'dal' = "Driving Alone", 'bik' = "Biking",
+               'wlk' = "Walking",
+               'trn' = "Taking Transit", 'oth' = "Using Other Modes",
+               'wsfh' = "Work and/or School From Home")
+
+mode_className <- c("Active Mode and Transit Users",
+                      "Carpool Users",
+                      'Non-Drivers',
+                      'Home Schoolers / Workers',
+                      'Solitary Drivers')
+
+classCounts_mode5 <- allOut_mode[["X5.class_lca_modeused_elim.out"]]$class_counts$mostLikely
+
+classCounts_mode5$count
+
+classname_count_labels <- paste0(mode_className, " (n=", classCounts_mode5$count, ")")
 
 
 ipps_mode <- create_ipps.probscale(outfile = allOut_mode,
                                    coefficients = "probability.scale",
-                                   paramCat = 2)
+                                   paramCat = 2,
+                                   paramOrder = names(modeOrder))
 
-ipps_mode
-
-# ipps_mode +
-#   geom_label_repel(data = est_dat_mode, aes(label = count))#, x = Variable, y = Value))
 
 ggsave(plot = ipps_mode,"analysis/figures/ipps_modeWS.png", width = 6.5, height = 4.5)
 
-ipp_mode3 <- allOut_mode$X3.class_lpa_modeused.out %>% create_ipps()
-ipp_mode3
-
-est_dat_mode <- add_estcount(outfile = allOut_mode)
-
-classCounts_mode <- est_dat_mode %>%
-  group_by(name, Class) %>%
-  summarise(count)
-
-classCounts_mode3 <- classCounts_mode %>% filter(str_detect(name, "3"))
-classCounts_mode4 <- classCounts_mode %>% filter(str_detect(name, "4"))
-
-
-ipp_mode4 <- allOut_mode$X4.class_lpa_modeused.out %>% create_ipps()
-ipp_mode4
-
-ggsave(plot = ipp_mode4, "analysis/figures/ipp_modeWS4.png", width = 6.5, height = 4)
+ipp_mode5 <- allOut_mode["X5.class_lca_modeused_elim.out"] %>%
+  create_ipps.probscale(coefficients = "probability.scale",
+                        paramCat = 2,
+                        paramOrder = names(modeOrder)) +
+  scale_x_discrete(labels = str_wrap(unname(modeOrder), width = 11)) +
+  ylab("Estimated Probabilities") +
+  scale_colour_discrete(labels = str_wrap(classname_count_labels, width = 16))
 
 
 
-modelist <- c("Biking & Walking", "Driving Alone", "Using Other Modes", "Sharing a Car", "Taking Transit")
+ipp_mode5
+
+ggsave(plot = ipp_mode5, "analysis/figures/ipp_mode5.png", width = 6.5, height = 3)
+
+
+
+
 
 
 
