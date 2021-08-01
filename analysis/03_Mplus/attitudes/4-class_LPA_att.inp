@@ -1,20 +1,23 @@
-TITLE: 4-class LPA: attitudes;
-DATA: FILE = "attitude-data-mplus-ready_7828ecc9cc5858773de4966c44513430.dat";
+TITLE: 4-class LPA: attitudes
+DATA: FILE = "attitude-data-mplus-ready_869b8e8c1f9741fa20bd8135733f9b14.dat";
 VARIABLE:    NAMES = pid q_dfr q_drx q_dnj q_crl q_csc q_tlf;
              IDVAR = pid;
              USEVAR = q_dfr q_drx q_dnj q_crl q_csc q_tlf;
              MISSING=.;
              CLASSES = c(4);
 ANALYSIS: TYPE = MIXTURE;
-          PROCESSORS = 12(STARTS);
-!          STARTS = 500 100;
-          STSCALE = 30;
-!          STARTS = 1000 200;
+          PROCESSORS = 6(STARTS);
+!          STSCALE = 10;
+!          STARTS = 8000 2000;
           STARTS = 0;
-          OPTSEED = 224950;
-!          K-1STARTS = 500 200;
-          LRTSTARTS = 0 0 1000 400;
+          OPTSEED = 94573; ! 804616; ! for stscale = 10
+!          K-1STARTS = 500 125;
+          LRTSTARTS = 0 0 200 50;
 PLOT: TYPE=PLOT3;
       SERIES = q_dfr q_drx q_dnj q_crl q_csc q_tlf(*);
 OUTPUT: TECH11;
 OUTPUT: TECH14;
+!SAVEDATA:	FILE IS lpa_att_c4_save.txt;
+!			SAVE IS CPROB;
+!            MISSFLAG=9999;
+!			FORMAT IS FREE;
