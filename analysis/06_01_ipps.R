@@ -141,17 +141,21 @@ modeOrder <- c('dot' = "Driving Others", 'pas' = "Riding as Passenger",
                'trn' = "Taking Transit", 'oth' = "Using Other Modes",
                'wsfh' = "Work and/or School From Home")
 
-mode_className <- c("Active Mode and Transit Users",
-                      "Carpool Users",
+mode_className <- c("Active Mode Users",
+                      "Carpool Drivers",
                       'Non-Drivers',
                       'Home Schoolers / Workers',
                       'Solitary Drivers')
 
 classCounts_mode5 <- allOut_mode[["X5.class_lca_modeused_elim.out"]]$class_counts$mostLikely
 
-classCounts_mode5$count
+classProp_mode5 <- round(classCounts_mode5$proportion * 100, digits = 1)
 
 classname_count_labels <- paste0(mode_className, " (n=", classCounts_mode5$count, ")")
+
+classname_prop_labels <- paste0(mode_className, " (", classProp_mode5, "%)")
+
+
 
 
 ipps_mode <- create_ipps.probscale(outfile = allOut_mode,
@@ -168,7 +172,9 @@ ipp_mode5 <- allOut_mode["X5.class_lca_modeused_elim.out"] %>%
                         paramOrder = names(modeOrder)) +
   scale_x_discrete(labels = str_wrap(unname(modeOrder), width = 11)) +
   ylab("Estimated Probabilities") +
-  scale_colour_discrete(labels = str_wrap(classname_count_labels, width = 16))
+  scale_colour_discrete(labels = str_wrap(classname_prop_labels, width = 16)) +
+  geom_hline(yintercept = 0.70, linetype = "dashed", color = "gray47") +
+  geom_hline(yintercept = 0.30, linetype = "dashed", color = "gray47")
 
 
 
@@ -188,9 +194,6 @@ allOut_att <- readModels(
   here("analysis/03_Mplus/attitudes/"),
   recursive = FALSE)
 
-ipps_att <- create_ipps(allOut_att)
-
-
 att_desc <- c(q_crl = "I won’t rely on another person to get to work on time",
   q_csc = "My schedule is too erratic to be in a carpool",
   q_dfr = "I like the freedom of driving my own car",
@@ -198,27 +201,57 @@ att_desc <- c(q_crl = "I won’t rely on another person to get to work on time",
   q_drx = "Driving a car is a relaxing way to commute",
   q_tlf = "Taking public transit does not fit my lifestyle")
 
-unname(att_desc)
+
+att_className <- c("Car Haters",
+                    "Indifferent Respondents",
+                    'Freedom Lovers',
+                    'Car Users',
+                    'Car Lovers')
+
+
+
+ipps_att <- create_ipps(allOut_att) +
+  scale_x_discrete(labels = str_wrap(unname(att_desc), width = 10)) +
+  facet_wrap(~ Title, scales = "fixed", ncol = 2) +
+  theme(strip.text = element_text(size = 9),
+        legend.title = element_text(size = 8),
+        text = element_text(size = 7, family = "serif"))
+  # theme(strip.text = element_text(size = 9),
+  #       legend.title = element_text(size = 9),
+  #       text = element_text(size = 8, family = "serif"))
 
 ipps_att
 
-ggsave(plot = ipps_att,"analysis/figures/ipps_att.png", width = 6.5, height = 4.5)
 
-est_dat_att <- add_estcount(outfile = allOut_att)
-classCounts_att <- est_dat_att %>%
-  group_by(name, Class) %>%
-  summarise(count)
 
-classCounts_att4 <- classCounts_att %>% filter(str_detect(name, "4"))
+# est_dat_att <- add_estcount(outfile = allOut_att)
+# classCounts_att <- est_dat_att %>%
+#   group_by(name, Class) %>%
+#   summarise(count)
+
+# classCounts_att4 <- classCounts_att %>% filter(str_detect(name, "4"))
+
+classCounts_att5 <- allOut_att[["X5.class_lpa_att.out"]]$class_counts$mostLikely
+
+
+(classCounts_att5$proportion * 100)
+
+# classname_count_att <- paste0(att_className, " (", classCounts_att5$count, ")")
+classname_prop_att <- paste0(att_className, " (", (classCounts_att5$proportion * 100), "%)")
+classname_prop_att
 
 
 ipp_att5 <- allOut_att$X5.class_lpa_att.out %>% create_ipps() +
-  scale_x_discrete(labels = str_wrap(unname(att_desc), width = 20))
+  scale_x_discrete(labels = str_wrap(unname(att_desc), width = 20)) +
+  ylab("Sample Means") +
+  scale_colour_discrete(labels = str_wrap(classname_prop_att, width = 16))
 
 ipp_att5
 
+ggsave(plot = ipps_att,"analysis/figures/ipps2_att.png", width = 6.5, height = 5)
 
-ggsave(plot = ipp_att5, "analysis/figures/ipps_att5.png", width = 6.5, height = 4)
+ggsave(plot = ipp_att5, "analysis/figures/ipps2_att5.png", width = 6.5, height = 4)
+
 
 # class 1: freedom lovers: they hate congestion, but love the freedom of driving in their car. They may enjoy driving, but not commuting
 

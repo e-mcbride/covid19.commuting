@@ -37,8 +37,7 @@ ggplot(tt_outs_att, aes(x = as.numeric(nclasses))) +
 fitstats_att <- tt_outs_att %>%
   select(-name, -LLRepTbl, -summaries, -llnreps, -optseed, -seedused, -t11_km1ll) %>%
   unnest(cols = c(nclasses, Loglikelihood, BIC, ABIC, BLRT_pval, VLMRT_pval,
-                  Entropy))
+                  Entropy)) %>%
+  filter(nclasses < 7)
 
-
-write_csv(fitstats_att, here("analysis/03_Mplus/attitudes/fitstats_LPA-att.csv"))
 write_csv(fitstats_att, here("analysis/figures/fitstats_LPA-att.csv"))
