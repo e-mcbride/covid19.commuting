@@ -37,9 +37,14 @@ bothclass <- classes_a5 %>%
 
 xc <- janitor::tabyl(bothclass, mode_c, att_c, show_na = F)
 
-xc %>% adorn_percentages() %>%
+xc %>%
+  adorn_totals(where = c("row", "col")) %>%
+  adorn_percentages() %>%
   adorn_pct_formatting(digits = 1) %>%
   adorn_ns()
+
+
+
 
 janitor::chisq.test(xc, tabyl_results = TRUE)
 
