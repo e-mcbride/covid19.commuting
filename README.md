@@ -73,11 +73,12 @@ computer:
     [here](https://github.com/benmarwick/rrtools)
 3.  Run `rrtools::use_analysis()`
 4.  Add the raw data from Box to `/analysis/data/raw_data`
-5.  Run `make_like.R` in the `/analysis` folder
 
 -   If you get an error `there is no package called ...`, then install
     the package(s) named using `install.packages()` before re-running
     the line that threw the error
+
+You are now ready to start using this project compendium!
 
 ## .R file naming protocol
 
