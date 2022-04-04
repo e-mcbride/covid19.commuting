@@ -1,0 +1,21 @@
+TITLE: 1-class LPA: Time to get to work/school, cleaner data
+DATA: FILE = "timeWS-data-mplus-ready2_a8668312250ed761128cb62cafba50bc.dat";
+VARIABLE:    NAMES = pid time_act time_dal time_oth time_shr time_trn;
+             IDVAR = pid;
+             USEVAR = time_act time_dal time_oth time_shr time_trn;
+             MISSING=.;
+             CLASSES = c(1);
+ANALYSIS: TYPE = MIXTURE;
+          PROCESSORS = 6(STARTS);
+          STSCALE = 20;
+          STARTS = 500 100;
+!          STARTS = 0;
+!          OPTSEED = ;
+!          K-1STARTS = 500 200;
+!          LRTSTARTS = 0 0 200 50;
+!PLOT: TYPE=PLOT3;
+!      SERIES = time_act time_dal time_oth time_shr time_trn(*);
+!SAVEDATA:	FILE IS lpa_timeWS_c1_save.txt;
+!			SAVE IS CPROB;
+!            MISSFLAG=9999;
+!			FORMAT IS FREE;

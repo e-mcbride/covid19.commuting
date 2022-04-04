@@ -1,0 +1,23 @@
+TITLE: 4-class LPA: Time to get to work/school, cleaner data
+DATA: FILE = "timeWS-data-mplus-ready2_f553d69428cde9870f8af4c057ede04b.dat";
+VARIABLE:    NAMES = pid time_bik time_dal time_dot time_oth time_pas time_trn time_wlk;
+             IDVAR = pid;
+             USEVAR = time_bik time_dal time_dot time_oth time_pas time_trn time_wlk;
+             MISSING=.;
+             CLASSES = c(4);
+ANALYSIS: TYPE = MIXTURE;
+          PROCESSORS = 6(STARTS);
+!          STSCALE = 20;
+          STARTS = 2000 500;
+!          STARTS = 0;
+!          OPTSEED = ;
+!          K-1STARTS = 500 200;
+!          LRTSTARTS = 0 0 200 50;
+!PLOT: TYPE=PLOT3;
+!      SERIES = time_bik time_dal time_dot time_oth time_pas time_trn time_wlk(*);
+!OUTPUT: TECH11;
+!OUTPUT: TECH14;
+!SAVEDATA:	FILE IS lpa_timeWS_c4_save.txt;
+!			SAVE IS CPROB;
+!            MISSFLAG=9999;
+!			FORMAT IS FREE;
