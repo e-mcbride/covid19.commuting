@@ -6,7 +6,7 @@ library(tidyverse)
 
 # data <- readr::read_rds(here("analysis/data/derived_data/data-newnames-completeonly.rds"))
 dictionary <- readr::read_rds("analysis/data/derived_data/clean-question-list.rds")
-data_elim <- read_rds("analysis/data/derived_data/data-good-cases.rds")
+data_elim <- read_rds("analysis/data/derived_data/data-good-cases2.rds")
 
 # Get travel variable names -----------------------------------------------
 

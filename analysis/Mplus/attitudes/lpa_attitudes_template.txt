@@ -1,7 +1,7 @@
 [[init]]
 iterators = classes;
 classes = 1:8;
-outputDirectory = "analysis/03_Mplus/attitudes/";
+outputDirectory = "analysis/Mplus/attitudes/";
 filename = "[[classes]]-class_LPA_att.inp";
 [[/init]]
 TITLE: [[classes]]-class LPA: attitudes

@@ -8,11 +8,11 @@ library(janitor)
 devtools::load_all()
 
 allOut_mode <- readModels(
-  here("analysis/03_Mplus/trav-beh/modeUsed/"),
+  here("analysis/Mplus/trav-beh/modeUsed/"),
   recursive = FALSE)
 
 allOut_att <- readModels(
-  here("analysis/03_Mplus/attitudes/"),
+  here("analysis/Mplus/attitudes/"),
   recursive = FALSE)
 
 # Extract selected models ===============================

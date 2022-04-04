@@ -132,7 +132,7 @@ add_estcount <- function(outfile) {
 ### Travel Mode -------------------------------------------------------------
 
 allOut_mode <- readModels(
-  here("analysis/03_Mplus/trav-beh/modeUsed/"),
+  here("analysis/Mplus/trav-beh/modeUsed/"),
   recursive = FALSE)
 
 modeOrder <- c('dot' = "Driving Others", 'pas' = "Riding as Passenger",
@@ -191,7 +191,7 @@ ggsave(plot = ipp_mode5, "analysis/figures/ipp_mode5.png", width = 6.5, height =
 
 ### Attitudes ---------------------------------------------------------------
 allOut_att <- readModels(
-  here("analysis/03_Mplus/attitudes/"),
+  here("analysis/Mplus/attitudes/"),
   recursive = FALSE)
 
 att_desc <- c(q_crl = "I won’t rely on another person to get to work on time",
@@ -265,7 +265,7 @@ ggsave(plot = ipp_att5, "analysis/figures/ipps2_att5.png", width = 6.5, height =
 
 ### Travel time, distance --------------------------------------------------
 allOut_ttds <- readModels(
-  here("analysis/03_Mplus/trav-beh/time_dist/"),
+  here("analysis/Mplus/trav-beh/time_dist/"),
   recursive = FALSE)
 
 ipps_ttdsx <- create_ipps(allOut_ttds)

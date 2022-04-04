@@ -35,22 +35,22 @@ modeWS_mplus <- data_mplus_ready %>%
 
 
 write_mplus_data(df = modeWS_mplus,
-                 wd_for_analysis = here("analysis/03_Mplus/trav-beh/modeUsed/"),
+                 wd_for_analysis = here("analysis/Mplus/trav-beh/modeUsed/"),
                  filename = "modeWS-data-mplus-ready2.dat",
                  writeData = "ifmissing",
                  hashfilename = TRUE)
 
 # create models from the template ==============================
-# createModels(templatefile = here("analysis/03_Mplus/trav-beh/modeUsed/lpa_modeUsed_template.txt"))
+# createModels(templatefile = here("analysis/Mplus/trav-beh/modeUsed/lpa_modeUsed_template.txt"))
 
 # Run models ================================================================
-# runModels(here("analysis/03_Mplus/trav-beh/modeUsed/"))
+# runModels(here("analysis/Mplus/trav-beh/modeUsed/"))
 
 # Analyze travel mode models, update and re-run ===================
 
 
 allOut_mode <- readModels(
-  here("analysis/03_Mplus/trav-beh/modeUsed/"),
+  here("analysis/Mplus/trav-beh/modeUsed/"),
   recursive = FALSE)
 
 # Get the table of values =====

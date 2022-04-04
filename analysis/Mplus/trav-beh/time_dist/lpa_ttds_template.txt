@@ -1,7 +1,7 @@
 [[init]]
 iterators = classes;
 classes = 1:6;
-outputDirectory = "analysis/03_Mplus/trav-beh/time_dist/";
+outputDirectory = "analysis/Mplus/trav-beh/time_dist/";
 filename = "[[classes]]-class_LPA_ttds.inp";
 [[/init]]
 TITLE: [[classes]]-class LPA: distance and time spent traveling;

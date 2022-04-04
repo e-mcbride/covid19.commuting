@@ -22,7 +22,7 @@ att_mplus <- data_mplus_ready %>%
 
 
 write_mplus_data(df = att_mplus,
-                 wd_for_analysis = here("analysis/03_Mplus/attitudes/"),
+                 wd_for_analysis = here("analysis/Mplus/attitudes/"),
                  filename = "attitude-data-mplus-ready.dat",
                  writeData = "ifmissing",
                  hashfilename = TRUE)

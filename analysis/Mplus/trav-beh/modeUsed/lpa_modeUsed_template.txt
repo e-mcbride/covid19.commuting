@@ -1,7 +1,7 @@
 [[init]]
 iterators = classes;
 classes = 1:6;
-outputDirectory = "analysis/03_Mplus/trav-beh/timeWS_elim/";
+outputDirectory = "analysis/Mplus/trav-beh/timeWS_elim/";
 filename = "[[classes]]-class_LCA_modeused_elim.inp";
 [[/init]]
 TITLE: [[classes]]-class LCA: Mode used to get to work/school, cleaner data

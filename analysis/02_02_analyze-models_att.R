@@ -6,7 +6,7 @@ library(MplusAutomation)
 devtools::load_all()
 
 allOut_att <- readModels(
-  here("analysis/03_Mplus/attitudes/"),
+  here("analysis/Mplus/attitudes/"),
   recursive = FALSE)
 
 # Get the table of values =====

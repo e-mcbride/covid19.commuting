@@ -2,7 +2,7 @@
 iterators = classes;
 classes = 1:6;
 optseed#classes = "350608" "972430" "NA" "NA" "NA" "NA";
-outputDirectory = "analysis/03_Mplus/trav-beh/time/";
+outputDirectory = "analysis/Mplus/trav-beh/time/";
 filename = "[[classes]]-class_LPA_time.inp";
 [[/init]]
 TITLE: [[classes]]-class LPA: time spent traveling;
