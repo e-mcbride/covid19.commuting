@@ -6,7 +6,7 @@ library(janitor)
 devtools::load_all()
 
 allOut_time <- readModels(
-  here("analysis/03_Mplus/trav-beh/time/"),
+  here("analysis/Mplus/trav-beh/time/"),
   recursive = FALSE)
 
 
@@ -40,7 +40,7 @@ timeb_mplus <- data_mplus_ready %>%
 
 
 write_mplus_data(df = timeb_mplus,
-                 wd_for_analysis = here("analysis/03_Mplus/trav-beh/time2/"),
+                 wd_for_analysis = here("analysis/Mplus/trav-beh/time2/"),
                  filename = "timeb-data-mplus-ready.dat",
                  writeData = "ifmissing",
                  hashfilename = TRUE)
@@ -48,14 +48,14 @@ write_mplus_data(df = timeb_mplus,
 # Create travel time B models =============
 
 #
-# createModels(templatefile = here("analysis/03_Mplus/trav-beh/time2/timeb_lpa-template.txt"))#, recursive = F)
+# createModels(templatefile = here("analysis/Mplus/trav-beh/time2/timeb_lpa-template.txt"))#, recursive = F)
 #
 # # below runModles is commented out because
 # # ERROR when using the following method in `runModels()`:
 # #     replaceOutfile="modifiedDate"
 #
 # runModels(
-#   here("analysis/03_Mplus/trav-beh/time2/"),
+#   here("analysis/Mplus/trav-beh/time2/"),
 #   recursive=F)
 #
 
@@ -64,7 +64,7 @@ write_mplus_data(df = timeb_mplus,
 # Imports =====
 
 allOut_t2 <- readModels(
-  here("analysis/03_Mplus/trav-beh/time2/"),
+  here("analysis/Mplus/trav-beh/time2/"),
   recursive = FALSE)
 
 # Get the table of values =====

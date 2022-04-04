@@ -37,8 +37,8 @@ library(here)
 # showSummaryTable() ================================================
 ##
 
-allOutput <- readModels(here("analysis/03_Mplus"))
-sumStats <- readModels(here("analysis/03_Mplus"), what="summaries", recursive = TRUE)
+allOutput <- readModels(here("analysis/Mplus"))
+sumStats <- readModels(here("analysis/Mplus"), what="summaries", recursive = TRUE)
 
 # THESE TWO HAVE THE SAME RESULTS (good to know)
 showSummaryTable(sumStats, keepCols=c("Title", "LL"))

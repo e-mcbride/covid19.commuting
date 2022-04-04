@@ -6,7 +6,7 @@ library(MplusAutomation)
 devtools::load_all()
 
 allOut <- readModels(
-  here("analysis/03_Mplus/trav-beh/time/"),
+  here("analysis/Mplus/trav-beh/time/"),
   recursive = FALSE)
 
 # Get the table of values =====
@@ -40,5 +40,5 @@ fitstats <- tt_outs %>%
                   Entropy))
 
 
-write_csv(fitstats, here("analysis/03_Mplus/trav-beh/time/fitstats_LPA-time.csv"))
+write_csv(fitstats, here("analysis/Mplus/trav-beh/time/fitstats_LPA-time.csv"))
 write_csv(fitstats, here("analysis/figures/fitstats_LPA-time.csv"))

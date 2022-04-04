@@ -16,7 +16,7 @@ ttds_mplus <- data_mplus_ready %>%
 
 
 write_mplus_data(df = ttds_mplus,
-                 wd_for_analysis = here("analysis/03_Mplus/trav-beh/time_dist/"),
+                 wd_for_analysis = here("analysis/Mplus/trav-beh/time_dist/"),
                  filename = "ttds-data-mplus-ready.dat",
                  writeData = "ifmissing",
                  hashfilename = TRUE)

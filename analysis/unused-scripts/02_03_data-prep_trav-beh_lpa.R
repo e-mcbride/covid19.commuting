@@ -13,4 +13,4 @@ data_travbeh <- data_mplus_ready
 colnames(data_travbeh) %>% str_c(collapse = " ") %>% noquote()
 
 # save file to `analysis` folder bc that means mplus script can find it with no PATH necessary
-write_csv(data_travbeh, na = "-9999", col_names = FALSE, here("analysis/03_Mplus/b4-data-analysis_att-cont.csv"))
+write_csv(data_travbeh, na = "-9999", col_names = FALSE, here("analysis/Mplus/b4-data-analysis_att-cont.csv"))

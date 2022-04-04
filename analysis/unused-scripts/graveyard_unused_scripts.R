@@ -24,4 +24,4 @@
 # write_file(an_coln, here("analysis/data/derived_data/analysis-colnames.txt"))
 
 # save file to `analysis` folder bc that means mplus script can find it with no PATH necessary
-# write_csv(data_dum, na = "-9999", col_names = FALSE, here("analysis/03_Mplus/b4-data-analysis.csv"))
+# write_csv(data_dum, na = "-9999", col_names = FALSE, here("analysis/Mplus/b4-data-analysis.csv"))

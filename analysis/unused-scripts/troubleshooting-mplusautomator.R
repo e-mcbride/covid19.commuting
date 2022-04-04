@@ -1,4 +1,4 @@
-templatefile <- here("analysis/03_Mplus/trav-beh/time/LPA-time-template.txt")
+templatefile <- here("analysis/Mplus/trav-beh/time/LPA-time-template.txt")
 !file.exists(templatefile)
 
 readfile <- scan(templatefile, what="character", sep="\n", strip.white=FALSE, blank.lines.skip=FALSE, quiet=TRUE)

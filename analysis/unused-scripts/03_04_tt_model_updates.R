@@ -5,7 +5,7 @@ library(MplusAutomation)
 devtools::load_all()
 
 allOut <- readModels(
-  here("analysis/03_Mplus/trav-beh/time/"),
+  here("analysis/Mplus/trav-beh/time/"),
   recursive = FALSE)
 
 lpa2tt <- allOut$X2.class_lpa_time.out
@@ -31,19 +31,19 @@ lpa2ttinp2 <- update(lpa2ttinp,
                      ANALYSIS = ~ "TYPE = MIXTURE;\n PROCESSORS = 12(STARTS); \n STARTS = 0; \n OPTSEED = 972430;",
                      OUTPUT = ~ "TECH11"
 )
-# hihi <- lpa2tt %>% append(list(modelout = here("analysis/03_Mplus/trav-beh/time/2-class_LPA_time.inp")))
+# hihi <- lpa2tt %>% append(list(modelout = here("analysis/Mplus/trav-beh/time/2-class_LPA_time.inp")))
 newmod2 <- function(mpinp, run_wd, nruns) {
   setwd(run_wd)
   mobj <- mplusModeler(mpinp,
                        run = nruns,
                        modelout = "2-class_LPA_time2HI.inp",
-                       # modelout = here("analysis/03_Mplus/trav-beh/time/2-class_LPA_time2.inp"),
+                       # modelout = here("analysis/Mplus/trav-beh/time/2-class_LPA_time2.inp"),
                        dataout = "timedat2.dat",
   )
   setwd(here())
   return(mobj)
 }
 
-tt2_t11 <- newmod2(lpa2ttinp2, run_wd = here("analysis/03_Mplus/trav-beh/time/"), nruns = 1)
+tt2_t11 <- newmod2(lpa2ttinp2, run_wd = here("analysis/Mplus/trav-beh/time/"), nruns = 1)
 tt2_t11$results$summaries %>% View(
 )

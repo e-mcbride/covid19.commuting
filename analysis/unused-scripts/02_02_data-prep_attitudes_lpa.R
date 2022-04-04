@@ -60,4 +60,4 @@ colnames(data_attitudes) %>% str_c(collapse = " ") %>% noquote()
 # write_file(an_coln, here("analysis/data/derived_data/analysis-colnames.txt"))
 
 
-write_csv(data_attitudes, na = "-9999", col_names = FALSE, here("analysis/03_Mplus/data-likert-cont.csv"))
+write_csv(data_attitudes, na = "-9999", col_names = FALSE, here("analysis/Mplus/data-likert-cont.csv"))

@@ -6,8 +6,8 @@
 # #import my function to write mplus data to file in the right file location
 # devtools::load_all()
 #
-# createModels(templatefile = here("analysis/03_Mplus/trav-beh/time_dist/lpa_ttds_template.txt"))
+# createModels(templatefile = here("analysis/Mplus/trav-beh/time_dist/lpa_ttds_template.txt"))
 #
 # runModels(
-#   here("analysis/03_Mplus/trav-beh/time_dist//"),
+#   here("analysis/Mplus/trav-beh/time_dist//"),
 #   recursive=TRUE)

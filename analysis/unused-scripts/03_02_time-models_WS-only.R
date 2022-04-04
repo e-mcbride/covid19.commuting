@@ -31,22 +31,22 @@ timeWS_mplus <- data_mplus_ready %>%
 
 
 write_mplus_data(df = timeWS_mplus,
-                 wd_for_analysis = here("analysis/03_Mplus/trav-beh/timeWS/"),
+                 wd_for_analysis = here("analysis/Mplus/trav-beh/timeWS/"),
                  filename = "timeWS-data-mplus-ready.dat",
                  writeData = "ifmissing",
                  hashfilename = TRUE)
 
 # # create models from the template ==============================
-# createModels(templatefile = here("analysis/03_Mplus/trav-beh/timeWS/timeWS_lpa-template.txt"))
+# createModels(templatefile = here("analysis/Mplus/trav-beh/timeWS/timeWS_lpa-template.txt"))
 
 # Run models ================================================================
-# runModels(here("analysis/03_Mplus/trav-beh/timeWS/"))
+# runModels(here("analysis/Mplus/trav-beh/timeWS/"))
 
 # Analyze travel time models, update and re-run ===================
 
 
 allOut_tWS <- readModels(
-  here("analysis/03_Mplus/trav-beh/timeWS/"),
+  here("analysis/Mplus/trav-beh/timeWS/"),
   recursive = FALSE)
 
 # Get the table of values =====
