@@ -1,0 +1,1 @@
+pid b4_wdays b4_wfh b4_vmeet dst_dal dst_eco dst_oth dst_shr ntr_dal ntr_eco ntr_oth ntr_shr time_dal time_eco time_oth time_shr gender hinc b4_emp b4_wschd stu own_car q_dfr q_drx q_dnj q_crl q_csc q_tlf
