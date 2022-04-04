@@ -6,6 +6,6 @@
 *.dat
 *.csv
 *.out
-analysis/03_Mplus/*.txt
+analysis/Mplus/*.txt
 *.gh5
 Mplus Run Models.log
