@@ -28,7 +28,7 @@ The [**analysis**](/analysis) directory contains:
   - [:file\_folder: **data**](/analysis/data): Data used in the analysis.
   - [:file\_folder: **figures**](/analysis/figures): Plots and other
     illustrations
-  - [:file\_folder: **03_Mplus**](/analysis/03_Mplus): All syntax of models run in Mplus.
+  - [:file\_folder: **Mplus**](/analysis/Mplus): All syntax of models run in Mplus.
   - [:file\_folder: **unused-scripts**](/analysis/unused-scripts): Scripts that I am not done writing and cannot yet run, or things I have removed from the main analysis workflow, but I want to keep a record of.
   - :scroll: **.R files**: Files to run the analysis, named to indicate the the order to run them in. Please see section [**.R file naming protocol**](https://github.com/e-mcbride/covid19.commuting#r-file-naming-protocol) for a description of the numbering/naming system.
 
@@ -72,10 +72,10 @@ Underscores (`_`) separate the sections of the file name. Each section of the fi
 
   Number | Description
   :----: | -----------
-   `01`  | Data cleaning, preparation, optimal matching/clustering processes
-   `02`  | Data preparation for running models with Mplus
-   `03`  | Interfacing between R and Mplus
-   `9#`  | Scripts for supplementary materials.
+   `01`  | Data cleaning and preparation
+   `02`  | Interfacing between Mplus and R to run and analyze  models
+   `03`  | Data visualization
+   `9#`  | Scripts for supplementary work
    
 * **Second number:** file run order within each category. Important for possible dependencies between files.
 * **Descriptive name:** describes what each file does in words separated by dashes (`-`) and underscores (`_`)

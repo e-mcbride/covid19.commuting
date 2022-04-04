@@ -17,8 +17,8 @@ The [**analysis**](/analysis) directory contains:
 -   [:file_folder: **data**](/analysis/data): Data used in the analysis.
 -   [:file_folder: **figures**](/analysis/figures): Plots and other
     illustrations
--   [:file_folder: **03_Mplus**](/analysis/03_Mplus): All syntax of
-    models run in Mplus.
+-   [:file_folder: **Mplus**](/analysis/Mplus): All syntax of models run
+    in Mplus.
 -   [:file_folder: **unused-scripts**](/analysis/unused-scripts):
     Scripts that I am not done writing and cannot yet run, or things I
     have removed from the main analysis workflow, but I want to keep a
@@ -90,12 +90,12 @@ of the file name has a purpose:
 
 -   **First number:** category of work being done in the file
 
-    | Number | Description                                                       |
-    |:------:|-------------------------------------------------------------------|
-    |  `01`  | Data cleaning, preparation, optimal matching/clustering processes |
-    |  `02`  | Data preparation for running models with Mplus                    |
-    |  `03`  | Interfacing between R and Mplus                                   |
-    |  `9#`  | Scripts for supplementary materials.                              |
+    | Number | Description                                               |
+    |:------:|-----------------------------------------------------------|
+    |  `01`  | Data cleaning and preparation                             |
+    |  `02`  | Interfacing between Mplus and R to run and analyze models |
+    |  `03`  | Data visualization                                        |
+    |  `9#`  | Scripts for supplementary work                            |
 
 -   **Second number:** file run order within each category. Important
     for possible dependencies between files.
